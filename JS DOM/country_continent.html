@@ -1,0 +1,128 @@
+<!-- 
+    Problem
+    Create an country_continent.html file. With a select field (having country options) and a button You must fill in valid id and other attributes for elements to make the buttons work.
+
+    Within the select you must have the following options, the options must also have the same value as given below:
+
+    India
+    United States of America
+    China
+    Nepal
+    Australia
+    France
+    Germany
+    South Africa
+    Nigeria
+    Mexico
+    Argentina
+    Brazil
+    Canada
+    Singapore
+    Sweden
+    eg:
+
+    <select id = "continent_select">
+        <option value = "India"> India </option>    
+    </select>
+    Now using Javascript do the following:
+
+    When the button Find continent is clicked, you must output an alert on the page which contains the text The continent is <name of continent>
+    Eg: If the input is India -> The continent is Asia
+    If the input is Argentina -> The continent is South America
+    This link https://simple.wikipedia.org/wiki/List_of_countries_by_continents shows you the continents for each country if you are unsure.
+
+    Hint: Use a Switch statement!
+ -->
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Country Continent</title>
+    <style>
+        button {
+            background-color: greenyellow;
+            padding: 3%;
+        }
+
+        select {
+            border: 2px solid red;
+            font-size: 24px;
+        }
+
+        div {
+            /* box-sizing: ; */
+            margin: auto 35%;
+            display: flex;
+            padding: 3%;
+        }
+    </style>
+</head>
+    <body>
+        <div>
+            <select name="" id="continent_select">
+                <option value="India">India</option>
+                <option value="USA">United States of America</option>
+                <option value="China">China</option>
+                <option value="Nepal">Nepal</option>
+                <option value="Australia">Australia</option>
+                <option value="France">France</option>
+                <option value="Germany">Germany</option>
+                <option value="SouthAfrica">South Africa</option>
+                <option value="Nigeria">Nigeria</option>
+                <option value="Mexico">Mexico</option>
+                <option value="Argentina">Argentina</option>
+                <option value="Brazil">Brazil</option>
+                <option value="Canada">Canada</option>
+                <option value="Singapore">Singapore</option>
+                <option value="Sweden">Sweden</option>
+            </select>
+            <button onclick="findContinent()">Find Continent</button>
+        </div>       
+
+
+        <script>
+            function findContinent(){
+                var choice = document.getElementById('continent_select').value;
+                switch(choice){
+                    case 'India':   alert(`${choice} is in Asia continent.`);
+                                    break;
+                    case 'USA':   alert(`${choice} is in North America continent.`);
+                                    break;
+                    case 'China':   alert(`${choice} is in Asia continent.`);
+                                    break;
+                    case 'Nepal':   alert(`${choice} is in Asia continent.`);
+                                    break;
+                    case 'Australia':   alert(`${choice} is in Oceania continent.`);
+                                    break;
+                    case 'France':   alert(`${choice} is in South America continent.`);
+                                    break;
+                    case 'Germany':   alert(`${choice} is in Europe continent.`);
+                                    break;
+                    case 'SouthAfrica':   alert(`${choice} is in Africa continent.`);
+                                    break;
+                    case 'Nigeria':   alert(`${choice} is in Africa continent.`);
+                                    break;
+                    case 'Mexico':   alert(`${choice} is in North America continent.`);
+                                    break;
+                    case 'Argentina':   alert(`${choice} is in South America continent.`);
+                                    break;
+                    case 'Brazil':   alert(`${choice} is in South America continent.`);
+                                    break;
+                    case 'Canada':   alert(`${choice} is in North America continent.`);
+                                    break;
+                    case 'Singapore':   alert(`${choice} is in Asia continent.`);
+                                    break;
+                    case 'Sweden':   alert(`${choice} is in Europe continent.`);
+                                    break;
+                    
+                }
+
+            }
+        </script>
+
+    </body>
+</html>
