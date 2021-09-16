@@ -22,8 +22,8 @@
         .container {
             background-color: whitesmoke;
             margin: auto;
-            padding: 3%;
-            width: 50%;
+            padding: 1%;
+            width: 550px;
             height: 100%;
 
             box-sizing: border-box;
@@ -32,12 +32,12 @@
         .panel {
             background-color: gray;
             margin: auto;
-            width: 70%;
+            width: 100%;
             height: 600px;
 
-            padding: 3%;
+            padding: 2%;
             text-align: center;
-            /* box-sizing: border-box; */
+            box-sizing: border-box;
 
             display: grid;
             gap: 3%;
@@ -186,6 +186,12 @@
             font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
             font-size: x-large;
         }
+
+        .textStyle {
+            font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+            font-size: xx-large;
+        }
+
     </style>
 </head>
 
@@ -194,32 +200,63 @@
     <div class="container">
 
         <div class="panel">
-            <div id="min">
-                <h1>100</h1><span>MIN</span>
+            <div id="">                
+                <h1 id="min" class="textStyle">100</h1>
+                <span>MIN</span>
             </div>
-            <div id="max">
-                <h1>2019</h1><span>MAX</span>
+            <div id="">
+                <h1 id="max" class="textStyle">2019</h1>
+                <span>MAX</span>
             </div>
-            <div id="score">
-                <h1>#</h1><span>SCORE</span>
+            <div id="">
+                <h1 id="score">#</h1>
+                <span>SCORE</span>
             </div>
-            <button onclick="getNumber()" value="1">1</button>
-            <button onclick="getNumber()" value="2">2</button>
-            <button onclick="getNumber()" value="3">3</button>
-            <button onclick="getNumber()" value="4">4</button>
-            <button onclick="getNumber()" value="5">5</button>
-            <button onclick="getNumber()" value="6">6</button>
-            <button onclick="getNumber()" value="7">7</button>
-            <button onclick="getNumber()" value="8">8</button>
-            <button onclick="getNumber()" value="9">9</button>
-            <button onclick="getNumber()" value="0">0</button>
-            <button onclick="getNumber()" value="enter">ENTER</button>
+            <button type="button" onclick="getNumber(1)" id="1" value="1">1</button>
+            <button type="button" onclick="getNumber(2)" id="2" value="2">2</button>
+            <button type="button" onclick="getNumber(3)" id="3" value="3">3</button>
+            <button type="button" onclick="getNumber(4)" id="4" value="4">4</button>
+            <button type="button" onclick="getNumber(5)" id="5" value="5">5</button>
+            <button type="button" onclick="getNumber(6)" id="6" value="6">6</button>
+            <button type="button" onclick="getNumber(7)" id="7" value="7">7</button>
+            <button type="button" onclick="getNumber(8)" id="8" value="8">8</button>
+            <button type="button" onclick="getNumber(9)" id="9" value="9">9</button>
+            <button type="button" onclick="getNumber(0)" id="0" value="0">0</button>
+            <button type="button" onclick="getNumber('enter')" id="enter" value="enter">ENTER</button>
         </div>
 
     </div>
 
     <script>
+        var number = "";
+        var min = 100;
+        var max = 2019;
 
+        function getNumber(element) {
+            if (typeof (element) == "number") {
+                number += element;
+                document.getElementById('score').textContent = number;
+            }
+
+            if (element == 'enter') {
+                if (Number(number) > max) {
+                    max = number;
+                    document.getElementById('max').textContent = number;
+                    document.getElementById('max').setAttribute('class','textStyle');
+                    document.getElementById('score').textContent = "#";
+                    number = "";
+                } else if (Number(number) > min) {
+                    min = number;
+                    document.getElementById('min').textContent = number;
+                    document.getElementById('min').setAttribute('class','textStyle');
+                    document.getElementById('score').textContent = "#";
+                    number = "";
+                } else {
+                    document.getElementById('score').textContent = "#";
+                    number = "";
+                }
+            }
+        }
     </script>
 
 </body>
