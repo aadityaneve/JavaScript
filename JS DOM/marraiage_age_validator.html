@@ -1,0 +1,78 @@
+<!-- 
+    Problem
+    Create a file called marraiage_age_validator.html
+    It should take the gender (dropdown) and year of birth as input and show an alert if the user is of the valid legal age to get married or not
+ -->
+
+ <!DOCTYPE html>
+ <html lang="en">
+ <head>
+     <meta charset="UTF-8">
+     <meta http-equiv="X-UA-Compatible" content="IE=edge">
+     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+     <title>Document</title>   
+     <style>
+        button {
+            background-color: pink;
+            padding: 3%;
+            font-size: 24px;
+        }
+
+        select {
+            border: 2px solid red;
+            font-size: 24px;
+        }
+
+        .container {
+            margin: auto 30%;
+            display: flex;
+            padding: 3%;
+
+            font-size: 24px;
+        }
+
+        input {
+            font-size: 24px;
+            width: 200px;
+        }
+     </style>
+ </head>
+ <body>
+
+    <div class="container">
+
+        <label for="age">Enter YOB:</label>
+        <input type="number" name="" id="age">
+        <select name="" id="gender">
+            <option value="male">Male</option>
+            <option value="female">Female</option>
+        </select>
+        <button onclick="canMarry()">Calculate</button>
+
+    </div>
+
+    
+    <script>
+        function canMarry(){
+            var yob = document.getElementById('age').value;
+            var gender = document.getElementById('gender').value;
+            var age = 2021 - yob;
+            // console.log(age);
+
+            if(gender == 'male'){
+                if(age < 21){
+                    alert("Sorry! You can't marry.");
+                }else{
+                    alert("Go! and get Married!!!")
+                }
+            }else if(gender == 'female'){
+                if(age < 18){
+                    alert("Sorry! You can't marry.");
+                }else{
+                    alert("Go! and get Married!!!")
+                }
+            }
+        }
+    </script>
+ </body>
+ </html>
