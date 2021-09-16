@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        button {}
+    </style>
+</head>
+
+<body>
+
+    <p id="output"></p>
+    <div>
+        <label for="age">Enter Age:</label>
+        <input id="age" type="number">
+    </div>
+    <button onclick="checkAge()">Check Age</button>
+
+    <script>
+        function checkAge(){
+            var ageElement = document.getElementById('age');
+            var age = Number(ageElement.value);
+            var outElement = document.getElementById('output');
+            if(age > 18){
+                outElement.textContent = "You can drive in India.";
+            }else if(age == 18){
+                outElement.textContent = "You are just enough to drive in India.";
+            }else {
+                outElement.textContent = "You cant drive in India.";
+            }
+        }        
+    </script>
+</body>
+
+</html>
