@@ -1,0 +1,74 @@
+<!-- Problem
+    
+    A button is given to you.
+
+    Using JavaScript do the following:
+
+    When the button is clicked the color of the text in the button must change to a random value.
+
+    -Bonus Challenge:
+
+    Create another button with the text Click me to change my color to an array value!
+
+    Make an array of any number of colors ["red", "green, "blue" ....].
+
+    When the button is clicked the background-color of the button must change to the next value in the array. -->
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Change My Color</title>
+    <style>
+        #container {
+            margin: auto;
+            /* border: 1px solid lightblue; */
+            width: 50%;
+        }
+        
+        .design {
+            border: 2px solid red;
+            font-size: 24px;
+            padding: 3%;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="container">
+        <h1>Change the buttons text color random value</h1>
+        <button id="btn1">Click here to change my color</button>
+        <button id="btn2">Click Here</button>
+    </div>
+
+    <script>
+
+        var colors = ["red", "green", "blue", "orange", "yellow", "gray"];
+
+        var btn1 = document.getElementById('btn1');
+            btn1.addEventListener('click', changeColor);
+            btn1.setAttribute('class', 'design');
+
+        var btn2 = document.getElementById('btn2');
+            btn2.addEventListener('click', changeFontColor);
+            btn2.setAttribute('class', 'design');
+        
+
+        function changeColor(event) {
+            var randomNumber = Math.ceil(Math.random() * 5);
+            // console.log(randomNumber);
+            event.target.style.backgroundColor = colors[randomNumber];
+        }
+
+        function changeFontColor(event){
+            var randomNumber = Math.ceil(Math.random() * 5);
+            event.target.style.color = colors[randomNumber];
+        }
+
+    </script>
+</body>
+
+</html>
