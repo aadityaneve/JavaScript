@@ -1,0 +1,66 @@
+<!-- 
+    Problem
+    Create an html page mouse_play.html
+    Use an eventlistener to create the layout in the images below
+    There is a div element called container with a submit button
+    when the mouse moves inside the container, the background color of submitting has to change to another color
+    when the mouse moves outside the container, the background color of the submit has to go back to the original color
+ -->
+
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mouse Play</title>
+    <style>
+        #container {
+            width: 500px;
+            height: 400px;
+            background-color: #4C9BD8;
+            margin: auto;
+        }
+
+        .design {
+            padding: 5%;
+            border-radius: 7%;
+            font-size: large;
+            border: none;
+
+            margin-top: 55%;
+            margin-left: 60%;            
+        }
+    </style>
+</head>
+
+<body>
+
+    <div id="container">
+
+        <button id="btn">SUBMIT</button>
+
+    </div>
+
+    <script>
+
+        var container = document.getElementById('container');
+        container.setAttribute('style','border: 2px solid black;')
+        var btn = document.getElementById('btn');
+        btn.setAttribute('class', 'design');
+        btn.setAttribute('style','background-color: green;');
+
+        container.addEventListener('mouseenter', function (event) {
+            btn.style.backgroundColor = 'red';
+        });
+
+        container.addEventListener('mouseleave', function(event){
+            btn.style.backgroundColor = 'green';
+        });
+    </script>
+
+</body>
+
+</html>
