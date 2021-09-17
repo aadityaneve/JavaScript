@@ -1,0 +1,70 @@
+<!-- 
+    Problem
+    
+    A button is given to you.
+
+    Using JavaScript do the following:
+
+    When the button is clicked the background color of the button must change to a random color.
+
+    However this must only occur 2 times.
+
+    When the button is clicked the third time nothing should happen.
+
+    Hint: Use the removeEventListner() function!
+
+    -Bonus Challenge:
+
+    When the mouse hovers over the button change the size of the text in the button to a random value.
+
+    Hint: Use the onmouseover event.
+ -->
+
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Button Click Color Change</title>
+    <style>
+        
+    </style>
+</head>
+
+<body>
+    <div id="container">
+        <h1 id="heading">The buttons color changes to a random value when it is clicked! But only two times!</h1>
+        <button id="btn">Click here to change my color!</button>
+    </div>
+
+    <script>
+        var colors = ["red", "green", "blue", "orange", "yellow", "gray"];
+        var count = 0;
+        var btn = document.getElementById('btn');
+
+        btn.addEventListener('mouseover', function(event) {
+            var randomNumber = Math.floor(Math.random() * 20) + 20;
+            event.target.style.fontSize = randomNumber+'px';
+            console.log(randomNumber);
+        });
+        btn.addEventListener('mouseout', function(event){
+            event.target.style.fontSize = '13px'
+        });
+
+        btn.addEventListener('dblclick', function (event) {
+            var randomNumber = Math.floor(Math.random() * 6);            
+            if (count != 2) {
+                count++;
+                event.target.style.backgroundColor = colors[randomNumber];
+            } else {
+                this.removeEventListener('dblclick', arguments.callee)
+            }
+            // console.log(count);
+        });
+    </script>
+</body>
+
+</html>
