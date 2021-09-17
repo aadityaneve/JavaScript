@@ -1,0 +1,58 @@
+<!-- 
+    Problem
+
+    A button is given to you.
+
+    Using JavaScript do the following:
+
+    When the button is double clicked the color of the h1 with the text My color should change 
+    when I double click the button! tag must change to a random color.    
+ -->
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Double Clicked Color Change</title>
+    <style>
+
+    
+        button {
+            font-size: 20px;
+            padding: 2%;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div id="container">
+        <h1 id="heading">My color should change when I double click the button!</h1>
+        <button id="btn">Click here to change my color</button>
+    </div>
+
+    <script>
+        var colors = ["red", "green", "blue", "orange", "yellow", "gray"];
+
+        var heading = document.getElementById('heading');
+
+        var btn = document.getElementById('btn');
+        btn.addEventListener('dblclick', function (event) {
+            var randomNumber = Math.floor(Math.random() * 6);
+            heading.style.backgroundColor = colors[randomNumber];
+            // console.log(randomNumber);
+        });
+        btn.addEventListener('click', function (event) {
+            var randomNumber = Math.floor(Math.random() * 6);
+            heading.style.color = colors[randomNumber];
+            // console.log(randomNumber);
+        });
+
+    </script>
+
+</body>
+
+</html>
