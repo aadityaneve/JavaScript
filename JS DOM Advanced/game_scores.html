@@ -1,0 +1,356 @@
+<!-- 
+    Problem
+    Complete the game score board so that it looks similar to the link https://raw.githubusercontent.com/masai-school/full-stack-dev/master/course/week_03/day_3/w3_d3_assignment/score_card.jpg
+    Functionality
+    By clicking on any number it shows up in the score box joined to any previous numbers already present (Eg: To enter a score of 423 you have to press 4 2 3)
+    Once the button ENTER is pressed the score gets compared with the MIN and MAX boxes, if the current score is less than the MIN score it gets updated with the current score, if the current score is greater than the MAX score it gets updated with the current score. The TOTAL score will gets updated with the sum of all scores
+    The score should also be added to the board on the right side along with the appropriate game number the number starts with 1 (Eg: Game 1)
+    The SCORE box will be reset with empty value
+    By clicking the REMOVE ALL button all the scores should be removed from the score card and MIN MAX and TOTALS updated accordingly
+    By clicking the REMOVE ODD button all the scores with the odd game numbers Game 1 Game 3 and so on should be removed from the score card, the MIN MAX and TOTALS updated accordingly and the new game numbers should be assigned again like Game 2 will now become Game 1
+    By clicking the REMOVE EVEN button all the scores with the even game numbers Game 2 Game 4 and so on should be removed from the score card, the MIN MAX and TOTALS updated accordingly and the new game numbers should be assigned again like Game 3 will now become Game 2
+    By clicking the REMOVE LAST button the last game score should be removed from the score card, the MIN MAX and TOTALS updated accordingly
+ -->
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Game Scores</title>
+    <style>
+        .container {
+            background-color: whitesmoke;
+            margin: auto;
+            padding: 1%;
+            width: 60%;
+            height: 100%;
+
+            box-sizing: border-box;
+
+            display: grid;
+            grid-template-rows: auto;
+            grid-template-columns: auto auto;
+            gap: 5px;
+        }
+
+        .rightPanel {
+            margin: auto;
+            width: 50%;
+
+            text-align: center;
+        }
+        
+        #buttons {
+            display: flex;
+            flex-direction: column;
+        }
+        #buttons > button {
+            background-color: black;
+            color: white;
+            font-size: 24px;
+            padding: 4%;
+        }
+
+
+        .leftPanel {
+            background-color: gray;
+            margin: auto;
+            width: 100%;
+            height: 600px;
+
+            padding: 2%;
+            text-align: center;
+            box-sizing: border-box;
+
+            display: grid;
+            gap: 3%;
+            grid-template-rows: auto auto auto auto auto auto auto auto;
+            grid-template-columns: auto auto auto auto auto;
+        }
+
+        .leftPanel div,
+        .leftPanel button {
+            border: 2px solid black;
+        }
+
+        .leftPanel>div:nth-child(1){
+            grid-row-start: 1;
+            grid-row-end: 2;
+            grid-column-start: 2;
+            grid-column-end: 5;
+
+            background-color:lightgray;
+        }
+
+        .leftPanel>div:nth-child(2) {
+            grid-row-start: 2;
+            grid-row-end: 3;
+            grid-column-start: 1;
+            grid-column-end: 3;
+
+            background-color: red;
+        }
+
+        .leftPanel>div:nth-child(3) {
+            grid-row-start: 2;
+            grid-row-end: 3;
+            grid-column-start: 4;
+            grid-column-end: 6;
+
+            background-color: green;
+        }
+
+        .leftPanel>div:nth-child(4) {
+            grid-row-start: 3;
+            grid-row-end: 4;
+            grid-column-start: 2;
+            grid-column-end: 5;
+
+            background-color: lightgray;
+        }
+
+        .leftPanel>button:nth-child(5) {
+            grid-row-start: 4;
+            grid-row-end: 5;
+            grid-column-start: 2;
+            grid-column-end: 3;
+
+            background-color: yellowgreen;
+        }
+
+        .leftPanel>button:nth-child(6) {
+            grid-row-start: 4;
+            grid-row-end: 5;
+            grid-column-start: 3;
+            grid-column-end: 4;
+        }
+
+        .leftPanel>button:nth-child(7) {
+            grid-row-start: 4;
+            grid-row-end: 5;
+            grid-column-start: 4;
+            grid-column-end: 5;
+
+            background-color: yellowgreen;
+        }
+
+        .leftPanel>button:nth-child(8) {
+            grid-row-start: 5;
+            grid-row-end: 6;
+            grid-column-start: 2;
+            grid-column-end: 3;
+        }
+
+        .leftPanel>button:nth-child(9) {
+            grid-row-start: 5;
+            grid-row-end: 6;
+            grid-column-start: 3;
+            grid-column-end: 4;
+        }
+
+        .leftPanel>button:nth-child(10) {
+            grid-row-start: 5;
+            grid-row-end: 6;
+            grid-column-start: 4;
+            grid-column-end: 5;
+        }
+
+        .leftPanel>button:nth-child(11) {
+            grid-row-start: 6;
+            grid-row-end: 7;
+            grid-column-start: 2;
+            grid-column-end: 3;
+        }
+
+        .leftPanel>button:nth-child(12) {
+            grid-row-start: 6;
+            grid-row-end: 7;
+            grid-column-start: 3;
+            grid-column-end: 4;
+        }
+
+        .leftPanel>button:nth-child(13) {
+            grid-row-start: 6;
+            grid-row-end: 7;
+            grid-column-start: 4;
+            grid-column-end: 5;
+        }
+
+        .leftPanel>button:nth-child(14) {
+            grid-row-start: 7;
+            grid-row-end: 8;
+            grid-column-start: 3;
+            grid-column-end: 4;
+        }
+
+        .leftPanel>button:nth-child(15) {
+            grid-row-start: 8;
+            grid-row-end: 9;
+            grid-column-start: 2;
+            grid-column-end: 5;
+        }
+
+        .leftPanel>button:nth-child(5),
+        .leftPanel>button:nth-child(7),
+        .leftPanel>button:nth-child(11),
+        .leftPanel>button:nth-child(13) {
+            background-color: greenyellow;
+        }
+
+        .leftPanel>button:nth-child(6),
+        .leftPanel>button:nth-child(8),
+        .leftPanel>button:nth-child(9),
+        .leftPanel>button:nth-child(10),
+        .leftPanel>button:nth-child(12) {
+            background-color: orange;
+        }
+
+        .leftPanel>button:nth-child(14) {
+            background-color: plum;
+        }
+
+        .leftPanel>button:nth-child(15) {
+            background-color: lightgreen;
+        }
+
+        span {
+            background-color: whitesmoke;
+            font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+            font-size: x-large;
+        }
+
+        .textStyle {
+            font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+            font-size: xx-large;
+        }
+
+        #gamesPanel {
+            padding: 1%;
+        }
+
+        #gamesPanel > h3 {
+            padding: 1%;
+            font-weight: 800;
+        }
+
+    </style>
+</head>
+
+<body>
+
+    <div class="container">
+
+        <div class="leftPanel">
+            <div>                
+                <h1 id="totalScore">-</h1>
+                <span>TOTAL</span>
+            </div>
+            <div id="">                
+                <h1 id="min" class="textStyle">0</h1>
+                <span>MIN</span>
+            </div>
+            <div id="">
+                <h1 id="max" class="textStyle">0</h1>
+                <span>MAX</span>
+            </div>
+            <div id="">
+                <h1 id="score">#</h1>
+                <span>SCORE</span>
+            </div>
+            <button type="button" onclick="getNumber(1)" id="1" value="1">1</button>
+            <button type="button" onclick="getNumber(2)" id="2" value="2">2</button>
+            <button type="button" onclick="getNumber(3)" id="3" value="3">3</button>
+            <button type="button" onclick="getNumber(4)" id="4" value="4">4</button>
+            <button type="button" onclick="getNumber(5)" id="5" value="5">5</button>
+            <button type="button" onclick="getNumber(6)" id="6" value="6">6</button>
+            <button type="button" onclick="getNumber(7)" id="7" value="7">7</button>
+            <button type="button" onclick="getNumber(8)" id="8" value="8">8</button>
+            <button type="button" onclick="getNumber(9)" id="9" value="9">9</button>
+            <button type="button" onclick="getNumber(0)" id="0" value="0">0</button>
+            <button type="button" onclick="getNumber('enter')" id="enter" value="enter">ENTER</button>
+        </div>
+
+        <div class="rightPanel">
+            <h1>GAME SCORES</h1>
+            <div id="gamesPanel">
+                
+            </div>
+            <div id="buttons">
+                <button id="btnRemoveAll">REMOVE ALL</button>
+                <button id="btnRemoveOdd">REMOVE ODD</button>
+                <button id="btnRemoveEven">REMOVE EVEN</button>
+                <button id="btnRemoveLast">REMOVE LAST</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        var number = "";
+        var min = 0;
+        var max = 0;
+        var count = 0;
+        var gamesPanel = document.getElementById('gamesPanel');
+        var totalScore = 0;
+
+        function getNumber(element) {
+            if (typeof (element) == "number") {
+                number += element;
+                document.getElementById('score').textContent = number;
+            }
+
+            if (element == 'enter') {
+                if (Number(number) > max) {
+                    max = Number(number);
+                    totalScore+=Number(number);
+                    document.getElementById('totalScore').textContent = totalScore;
+                    
+                    count++;
+                    var h3 = document.createElement('h3');                    
+                    gamesPanel.append(h3);                
+                    h3.textContent = `Game ${count} - ${number}`;   
+                    // document.getElementById('gamesPanel').textContent = `Game ${count} - ${number}`;
+
+                    document.getElementById('max').textContent = number;
+                    document.getElementById('max').setAttribute('class','textStyle');
+                    document.getElementById('score').textContent = "#";
+                    number = "";                                        
+                } else if (min < Number(number)) {
+                    // console.log(document.getElementById('min').textContent);
+                    min = Number(number);
+                    totalScore+=Number(number);
+                    document.getElementById('totalScore').textContent = totalScore;
+                    
+                    document.getElementById('min').textContent = number;
+
+                    count++;
+                    var h3 = document.createElement('h3');
+                    gamesPanel.append(h3);
+                    h3.textContent = `Game ${count} - ${number}`;                                    
+                    // document.getElementById('gamesPanel').textContent = `Game ${count} - ${number}`;
+
+                    document.getElementById('min').setAttribute('class','textStyle');
+                    document.getElementById('score').textContent = "#";
+                    number = "";                    
+                } else {
+                    totalScore+=Number(number);
+                    document.getElementById('totalScore').textContent = totalScore;
+
+                    count++;
+                    var h3 = document.createElement('h3');
+                    gamesPanel.append(h3);
+                    h3.textContent = `Game ${count} - ${number}`;                    
+                    // document.getElementById('gamesPanel').textContent = `Game ${count} - ${number}`;
+
+                    document.getElementById('score').textContent = "#";
+                    number = "";
+                }
+            }
+        }
+    </script>
+
+</body>
+
+</html>
