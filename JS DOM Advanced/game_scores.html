@@ -42,12 +42,13 @@
 
             text-align: center;
         }
-        
+
         #buttons {
             display: flex;
             flex-direction: column;
         }
-        #buttons > button {
+
+        #buttons>button {
             background-color: black;
             color: white;
             font-size: 24px;
@@ -76,13 +77,13 @@
             border: 2px solid black;
         }
 
-        .leftPanel>div:nth-child(1){
+        .leftPanel>div:nth-child(1) {
             grid-row-start: 1;
             grid-row-end: 2;
             grid-column-start: 2;
             grid-column-end: 5;
 
-            background-color:lightgray;
+            background-color: lightgray;
         }
 
         .leftPanel>div:nth-child(2) {
@@ -231,11 +232,10 @@
             padding: 1%;
         }
 
-        #gamesPanel > h3 {
+        #gamesPanel>h3 {
             padding: 1%;
             font-weight: 800;
         }
-
     </style>
 </head>
 
@@ -244,11 +244,11 @@
     <div class="container">
 
         <div class="leftPanel">
-            <div>                
+            <div>
                 <h1 id="totalScore">-</h1>
                 <span>TOTAL</span>
             </div>
-            <div id="">                
+            <div id="">
                 <h1 id="min" class="textStyle">0</h1>
                 <span>MIN</span>
             </div>
@@ -276,13 +276,13 @@
         <div class="rightPanel">
             <h1>GAME SCORES</h1>
             <div id="gamesPanel">
-                
+
             </div>
             <div id="buttons">
-                <button id="btnRemoveAll">REMOVE ALL</button>
-                <button id="btnRemoveOdd">REMOVE ODD</button>
-                <button id="btnRemoveEven">REMOVE EVEN</button>
-                <button id="btnRemoveLast">REMOVE LAST</button>
+                <button id="btnRemoveAll" onclick="btnRemoveAll()">REMOVE ALL</button>
+                <button id="btnRemoveOdd" onclick="btnRemoveOdd()">REMOVE ODD</button>
+                <button id="btnRemoveEven" onclick="btnRemoveEven()">REMOVE EVEN</button>
+                <button id="btnRemoveLast" onclick="btnRemoveLast()">REMOVE LAST</button>
             </div>
         </div>
     </div>
@@ -304,44 +304,44 @@
             if (element == 'enter') {
                 if (Number(number) > max) {
                     max = Number(number);
-                    totalScore+=Number(number);
+                    totalScore += Number(number);
                     document.getElementById('totalScore').textContent = totalScore;
-                    
+
                     count++;
-                    var h3 = document.createElement('h3');                    
-                    gamesPanel.append(h3);                
-                    h3.textContent = `Game ${count} - ${number}`;   
+                    var h3 = document.createElement('h3');
+                    gamesPanel.append(h3);
+                    h3.textContent = `Game ${count} -${number}`;
                     // document.getElementById('gamesPanel').textContent = `Game ${count} - ${number}`;
 
                     document.getElementById('max').textContent = number;
-                    document.getElementById('max').setAttribute('class','textStyle');
+                    document.getElementById('max').setAttribute('class', 'textStyle');
                     document.getElementById('score').textContent = "#";
-                    number = "";                                        
+                    number = "";
                 } else if (min < Number(number)) {
                     // console.log(document.getElementById('min').textContent);
                     min = Number(number);
-                    totalScore+=Number(number);
+                    totalScore += Number(number);
                     document.getElementById('totalScore').textContent = totalScore;
-                    
+
                     document.getElementById('min').textContent = number;
 
                     count++;
                     var h3 = document.createElement('h3');
                     gamesPanel.append(h3);
-                    h3.textContent = `Game ${count} - ${number}`;                                    
+                    h3.textContent = `Game ${count} - ${number}`;
                     // document.getElementById('gamesPanel').textContent = `Game ${count} - ${number}`;
 
-                    document.getElementById('min').setAttribute('class','textStyle');
+                    document.getElementById('min').setAttribute('class', 'textStyle');
                     document.getElementById('score').textContent = "#";
-                    number = "";                    
+                    number = "";
                 } else {
-                    totalScore+=Number(number);
+                    totalScore += Number(number);
                     document.getElementById('totalScore').textContent = totalScore;
 
                     count++;
                     var h3 = document.createElement('h3');
                     gamesPanel.append(h3);
-                    h3.textContent = `Game ${count} - ${number}`;                    
+                    h3.textContent = `Game ${count} - ${number}`;
                     // document.getElementById('gamesPanel').textContent = `Game ${count} - ${number}`;
 
                     document.getElementById('score').textContent = "#";
@@ -349,6 +349,69 @@
                 }
             }
         }
+
+        function btnRemoveAll() {
+            document.getElementById('gamesPanel').innerHTML = "";
+        }
+
+        function btnRemoveOdd() {
+            var gamesPanelData = document.querySelectorAll('#gamesPanel > h3');
+            // console.log(gamesPanelData[0].innerHTML.length);
+            // console.log(gamesPanelData.length);
+
+            for (let k = 0; k < gamesPanelData.length; k++) {
+                var str = gamesPanelData[k].innerHTML;
+                var newStr = "";
+                for (let i = 5; i < gamesPanelData[k].innerHTML.length; i++) {
+                    if (str[i] == "-") {
+                        for (let j = i + 1; j < gamesPanelData[k].innerHTML.length; j++) {
+                            newStr += str[j];
+                        }
+                        var score = Number(newStr);
+                        if (score % 2 != 0) {
+                            gamesPanelData[k].remove();
+                        }
+                    }
+                }
+            }
+
+
+            // document.querySelectorAll('#gamesPanel > h3:nth-child(1)').innerHTML = "";
+        }
+
+
+        function btnRemoveEven() {
+
+            var gamesPanelData = document.querySelectorAll('#gamesPanel > h3');
+            // console.log(gamesPanelData[0].innerHTML.length);
+            // console.log(gamesPanelData.length);
+
+            for (let k = 0; k < gamesPanelData.length; k++) {
+                var str = gamesPanelData[k].innerHTML;
+                var newStr = "";
+                for (let i = 5; i < gamesPanelData[k].innerHTML.length; i++) {
+                    if (str[i] == "-") {
+                        for (let j = i + 1; j < gamesPanelData[k].innerHTML.length; j++) {
+                            newStr += str[j];
+                        }
+                        var score = Number(newStr);
+                        if (score % 2 == 0) {
+                            gamesPanelData[k].remove();
+                        }
+                    }
+                }
+            }
+
+        }
+
+
+        function btnRemoveLast() {
+
+            var gamesPanelData = document.querySelectorAll('#gamesPanel > h3');
+
+            gamesPanelData[gamesPanelData.length-1].remove();           
+        }
+
     </script>
 
 </body>
