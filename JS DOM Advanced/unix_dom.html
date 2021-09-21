@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Linus Torvalds</title>
+    <style>
+        body {
+            margin-top: 50px;
+            /* background-color: black; */
+            font-family: cursive;
+        }
+
+        .mainDiv {
+            /* border: 5px solid green; */
+            background-color: whitesmoke;
+            height: 100%;
+            width: 80%;
+            margin: auto;
+
+            text-align: center;
+        }
+
+        img {
+            width: 130px;
+        }
+
+        .linusDiv {
+            margin-top: 30px;
+            background-color: wheat;
+            display: inline-block;
+            padding: 10px 90px;
+        }
+
+        .linusDiv>div {
+            display: flex;
+            justify-content: center;
+        }
+
+        .linusDiv>h1 {
+            font-size: 40px;
+        }
+
+        .linusDiv>h3 {
+            font-size: 30px;
+        }
+
+        .salKhan {
+            margin: 25px;
+        }
+
+        .table {
+            display: inline-block;
+        }
+
+        .h1 {
+            display: inline-block;
+            color: maroon;
+            font-size: 40px;
+        }
+
+        .p {
+            text-align: center;
+            font-size: 20px;
+        }
+
+
+
+        .panel {
+            background-color: darkorange;
+            display: flex;
+            justify-content: space-between;
+            width: 1100px;
+            margin: auto;
+            padding: 15px;
+        }
+
+        .verticalLine {
+            margin-top: 30px;
+            display: inline-block;
+            border-left: 8px solid black;
+            height: 110px;
+        }
+
+        .button {
+            padding: 2%;
+            background-color: aquamarine;
+            color: blueviolet;
+            font-size: 22px;
+            margin: 0px;
+        }
+    </style>
+</head>
+
+<body>
+
+    <button id="btn" onclick="showEverything()">CLICK ME</button>
+
+    <div class="" id="mainDiv">
+
+       
+    </div>
+
+
+    <script>
+        
+        var btn = document.getElementById('btn');
+        btn.setAttribute('class','button');
+
+        function showEverything() {
+
+
+            var mainDiv = document.getElementById('mainDiv');
+            mainDiv.setAttribute('class','mainDiv');
+
+            var linusDiv = document.createElement('div');
+                mainDiv.append(linusDiv);
+            var salKhanDiv = document.createElement('div');
+                mainDiv.appendChild(salKhanDiv);
+            var panel = document.createElement('div');
+                mainDiv.append(panel);
+
+            // Linus Div
+            linusDiv.setAttribute('class','linusDiv');
+
+            var linusImg = document.createElement('img');
+            var linusHeading1 = document.createElement('h1');
+            var linusHeading3 = document.createElement('h3');
+            
+            linusDiv.appendChild(linusImg);
+            linusImg.src = "https://masai-course.s3.ap-south-1.amazonaws.com/resources/images/linus.jpg";
+
+            linusDiv.appendChild(linusHeading1);
+            linusHeading1.innerHTML = "Linus Torvalds";
+
+            linusDiv.appendChild(linusHeading3);
+            linusHeading3.innerHTML = "The Creator of Linux & Git";
+
+
+
+            // SalKhan Div
+            salKhanDiv.setAttribute('class','salKhan');
+
+            var table = document.createElement('table');
+            var tr = document.createElement('tr');
+            var td = document.createElement('td');
+            var img = document.createElement('img');
+            var td1 = document.createElement('td');
+            var p = document.createElement('p');
+            var h1 = document.createElement('h1');
+
+            table.setAttribute('class','table');
+            h1.setAttribute('class','h1');
+            p.setAttribute('class','p');
+
+            salKhanDiv.append(table);
+            table.appendChild(tr);
+
+            tr.appendChild(td);
+            td.appendChild(img);
+            img.src = "https://masai-course.s3.ap-south-1.amazonaws.com/resources/images/khan.jpg";
+
+            tr.appendChild(td1);
+            td1.appendChild(h1);
+            h1.innerHTML = "Sal Khan";
+
+            tr.appendChild(td1);
+            td1.appendChild(p);
+            p.innerHTML = "Salman Khan is the founder of the Khan Academy which has a mission <br> of providing a free world-class education for anyone, anywhere."
+
+
+
+            // Bottom Panel
+            var leftBlock = document.createElement('div');
+            panel.appendChild(leftBlock);
+            panel.setAttribute('class','panel');
+
+            var h1 = document.createElement('h1');
+            var h3 = document.createElement('h3');
+            
+            leftBlock.appendChild(h1);
+            h1.innerHTML = "Ken Thompson";
+
+            leftBlock.appendChild(h3);
+            h3.innerHTML = "Designed and Implemented the <br> original Unix operating system";
+
+            var verticalLine = document.createElement('div');
+            panel.appendChild(verticalLine);
+            verticalLine.setAttribute('class','verticalLine');
+
+
+            var rightBlock = document.createElement('div');
+            panel.appendChild(rightBlock);
+
+            var rh1 = document.createElement('h1');
+            var rh3 = document.createElement('h3');
+
+            rightBlock.appendChild(rh1);
+            rh1.innerHTML = "Dennis Ritchie";
+
+            rightBlock.appendChild(rh3);
+            rh3.innerHTML = "The creator of C Programming Language";
+
+
+
+
+        }
+
+    </script>
+</body>
+
+</html>
