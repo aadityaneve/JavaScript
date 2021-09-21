@@ -1,0 +1,212 @@
+<!-- 
+    Problem
+    Create a mini Js datatype learning app.
+    Create buttons namely ‘Objects’, ‘Arrays’, ‘Functions’, ‘Strings’, ‘Numbers’, ‘null’, ‘undefined’ in index.html.
+    On clicking any respective button, the user should be able to see 5-6 bullet-point information about that particular datatype.
+    For e.g If I click on ‘Object’, I should see information about Js objects like what are objects, how they work, mutability, etc. Be creative!
+-->
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title></title>
+    <style>
+
+        .container {
+            margin: auto;
+            background-color: whitesmoke;
+            border: 2px solid black;
+
+            text-align: center;
+
+            width: 50%;
+            height: 300px;
+        }
+
+        .button {
+            background-color: yellowgreen;
+            padding: 1%;
+            font-size: large;
+        }
+
+        .ul {
+            text-align: center;
+        }
+        ul li {
+            list-style: circle;
+        }
+
+    </style>
+</head>
+<body>
+
+    
+    <script>
+
+        details = [
+            ["Object is Non-Primitive Data Types in Js.","Object values can be changed i.e (Mutable)","Objects hold the memory location/address of the value of a variable.","Objects are stored by reference..","We can freeze object, object using Object.freeze()."],
+            ["Array are Non-Primitive Data Types in Js.","Array values can be changed i.e (Mutable)","Arrays hold the memory location/address of the value of a variable.","Arrays are value can be changed.","Arrays are stored by reference.","We can freeze object, object using Object.freeze()."],
+            ["Function are Non-Primitive Data Types in Js."],
+            ["String is Primitive Data Types in Js","String hold the actual value of a variable.","String value cannot be changed (Immutable)","Strings are stored by value"],
+            ["Number is Primitive Data Types in Js","Number hold the actual value of a variable.","Number value cannot be changed (Immutable)","Numbers are stored by value"],
+            ["Null is Primitive Data Types in Js","Variable is defined Null when its empty ."],
+            ["Undefined is Primitive Data Types in Js","Variable are Undefined no value are assigned to it."]
+        ];
+
+
+        var container = document.createElement('div');
+            container.setAttribute('class','container');
+            document.body.append(container);        
+
+        var btnObjects = document.createElement('button');
+            btnObjects.innerHTML = "Objects";
+            btnObjects.addEventListener('click', function(event) {
+                // to delete ul
+                document.getElementsByTagName('ul')[0].remove();
+
+                let ul = document.createElement('ul');
+                    ul.setAttribute('class','ul');
+
+                detailsPanel.appendChild(ul);
+                for(let i=0;i<details[0].length;i++){
+                    let li = document.createElement('li');
+                    li.innerHTML = details[0][i];                    
+                    ul.appendChild(li);
+                }
+
+            });
+            container.appendChild(btnObjects);            
+
+        var btnArrays = document.createElement('button');
+            btnArrays.innerHTML = "Arrays";
+
+            btnArrays.addEventListener('click', function(event) {
+                // to delete ul
+                document.getElementsByTagName('ul')[0].remove();
+
+                let ul = document.createElement('ul');
+                    ul.setAttribute('class','ul');
+
+                detailsPanel.appendChild(ul);
+                for(let i=0;i<details[1].length;i++){
+                    let li = document.createElement('li');
+                    li.innerHTML = details[1][i];
+                    ul.appendChild(li);
+                }
+            });
+            container.appendChild(btnArrays);            
+
+        var btnFunctions = document.createElement('button');
+            btnFunctions.innerHTML = "Functions";
+            btnFunctions.addEventListener('click', function(event) {
+                // to delete ul
+                document.getElementsByTagName('ul')[0].remove();
+
+                let ul = document.createElement('ul');
+                    ul.setAttribute('class','ul');
+
+                detailsPanel.appendChild(ul);
+                for(let i=0;i<details[2].length;i++){
+                    let li = document.createElement('li');
+                    li.innerHTML = details[2][i];
+                    ul.appendChild(li);
+                }
+            });
+            container.appendChild(btnFunctions);
+
+        var btnStrings = document.createElement('button');
+            btnStrings.innerHTML = "Strings";
+            btnStrings.addEventListener('click', function(event) {
+                // to delete ul
+                document.getElementsByTagName('ul')[0].remove();
+
+                let ul = document.createElement('ul');
+                    ul.setAttribute('class','ul');
+
+                detailsPanel.appendChild(ul);
+                for(let i=0;i<details[3].length;i++){
+                    let li = document.createElement('li');
+                    li.innerHTML = details[3][i];
+                    ul.appendChild(li);
+                }
+            });
+            container.appendChild(btnStrings);
+
+        var btnNumbers = document.createElement('button');
+            btnNumbers.innerHTML = "Numbers";
+            btnNumbers.addEventListener('click', function(event) {
+                // to delete ul
+                document.getElementsByTagName('ul')[0].remove();
+
+                let ul = document.createElement('ul');
+                    ul.setAttribute('class','ul');
+
+                detailsPanel.appendChild(ul);
+                for(let i=0;i<details[4].length;i++){
+                    let li = document.createElement('li');
+                    li.innerHTML = details[4][i];
+                    ul.appendChild(li);
+                }
+            });
+            container.appendChild(btnNumbers);
+
+        var btnNull = document.createElement('button');
+            btnNull.innerHTML = "Null";
+            btnNull.addEventListener('click', function(event) {
+                // to delete ul
+                document.getElementsByTagName('ul')[0].remove();
+
+                let ul = document.createElement('ul');
+                    ul.setAttribute('class','ul');
+
+                detailsPanel.appendChild(ul);
+                for(let i=0;i<details[5].length;i++){
+                    let li = document.createElement('li');
+                    li.innerHTML = details[5][i];
+                    ul.appendChild(li);
+                }
+            });
+            container.appendChild(btnNull);
+
+        var btnUndefined = document.createElement('button');
+            btnUndefined.innerHTML = "Undefined";
+            btnUndefined.addEventListener('click', function(event) {
+                // to delete ul
+                document.getElementsByTagName('ul')[0].remove();
+
+                let ul = document.createElement('ul');
+                    ul.setAttribute('class','ul');
+
+                detailsPanel.appendChild(ul);
+                for(let i=0;i<details[6].length;i++){
+                    let li = document.createElement('li');
+                    li.innerHTML = details[6][i];
+                    ul.appendChild(li);
+                }
+            });
+            container.appendChild(btnUndefined);
+
+
+
+        var allButtons = document.getElementsByTagName('button');
+        for(let i=0;i<allButtons.length;i++){
+            allButtons[i].setAttribute('class','button');
+        }
+        // console.log(allButtons.length);
+
+
+        var detailsPanel = document.createElement('div');
+            container.appendChild(detailsPanel);
+        
+        var tempUl = document.createElement('ul');
+            detailsPanel.appendChild(tempUl);
+
+
+
+    </script>
+
+</body>
+</html>
