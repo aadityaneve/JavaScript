@@ -1,0 +1,84 @@
+<!-- 
+    Problem
+    Create a DICE. On clicking ‘throw dice’ button, the user should be able to see a random number between 1 to 6. If the number is 6,
+    show the number in 'green’ color,
+    if the number is ‘1’ show the number in ‘red’ color.
+    For the rest of the numbers, keep a color of your choice.
+ -->
+
+
+ <!DOCTYPE html>
+ <html lang="en">
+ <head>
+     <meta charset="UTF-8">
+     <meta http-equiv="X-UA-Compatible" content="IE=edge">
+     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+     <title>Dice</title>
+     <style>
+
+        .container {
+            margin: auto;
+            background-color: whitesmoke;
+            border: 2px solid black;
+
+            text-align: center;
+
+            width: 50%;
+            height: 300px;
+        }
+
+        .button {
+            background-color: yellowgreen;
+            padding: 3%;
+            font-size: x-large;
+            font-size: 35px;
+        }
+
+        .panel {
+            padding: 3%;
+            font-size: 65px;
+            font-weight: bolder;
+        }
+
+     </style>
+ </head>
+ <body>
+     
+    <script>
+
+        var colors = ["Red", "Orange", "Yellow", "Aqua", "Blue", "Green"];
+
+        var container = document.createElement('div');
+            container.setAttribute('class','container');
+            document.body.append(container);
+
+
+        var dice = document.createElement('button');
+            dice.innerHTML = "Throw Dice";
+            dice.setAttribute('class','button');
+
+            dice.addEventListener('click', function (event) {
+                var randomNumber = Math.floor(Math.random() * 6);
+
+                if(randomNumber == 0){
+                    panel.style.color = colors[0];
+                }else if(randomNumber == 5){
+                    panel.style.color = colors[5];
+                }else{
+                    panel.style.color = colors[randomNumber];
+                }              
+
+                panel.innerHTML = randomNumber+1;
+            });
+
+            container.appendChild(dice);
+
+        var panel = document.createElement('div');
+            panel.setAttribute('class','panel')      ;
+            container.appendChild(panel);       
+            
+
+    </script>
+
+ </body>
+ </html>
