@@ -1,0 +1,125 @@
+<!-- 
+    Problem
+    In signup.html, a user should be able to signup with details like ‘name, contact no, email, password’. 
+    The form should not be submitted if any of the fields are empty. store the user signup data in local storage.
+    In login.html, the user should be able to log in using ‘email and password’ If wrong username/password, 
+    alert ‘invalid Credentials’.
+    If login successful, send the user to home.html automatically.
+ -->
+
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Signin</title>
+    <style>
+        #container {
+            border: 1px solid black;
+
+            margin: 6% auto;
+            padding: 3%;
+            width: 25%;
+            height: 300px;
+        }
+
+        #form {
+            display: grid;
+            grid-template-columns: auto;
+            grid-row-gap: 10%;
+
+            vertical-align: center;
+
+            margin: auto;
+            width: 60%;
+
+            font-family: serif;
+            font-weight: 800;
+        }
+
+        #form input {
+            border-radius: 5%;
+            height: 100%;
+        }
+
+        button {
+            background-color: lightgreen;
+            height: 100%;
+            width: 50%;
+
+            border-radius: 5%;
+            padding: 3%;
+
+            margin: auto;
+        }
+    </style>
+</head>
+
+<body>
+
+
+    <div id="container">
+        <form onsubmit="onSubmit(event)" id="form" action="">
+
+            <h1>Signin</h1>
+
+            <label for="email">E-Mail:</label>
+            <input id="email" type="email" placeholder="E-Mail" required>
+
+            <label for="password">Password:</label>
+            <input id="password" type="password" placeholder="Password" required>
+
+            <button type="submit" value="SUBMIT">SIGNIN</button>
+
+        </form>
+    </div>
+
+
+
+
+    <script>
+
+
+
+        function onSubmit(e) {
+            e.preventDefault();
+
+            let flag = 0;
+
+            let form = document.getElementById('form');
+            let email = form.email.value;
+            let password = form.password.value;
+
+
+            //  console.log(email, password);  
+
+
+            let allUsers = JSON.parse(localStorage.getItem('users'));
+
+            allUsers.forEach(function (user) {
+                if (email === user.email && password === user.password) {
+                    alert('You have successfully logged in.');
+                    window.location.href = 'navbar.html';
+                }else{
+                    flag = 1;
+                }
+            });
+
+            if(flag == 1){
+                alert('Wrong Credentials.');
+            }
+
+            
+            // localStorage.setItem('users', JSON.stringify(allUsers));
+
+        }
+
+
+    </script>
+
+</body>
+
+</html>

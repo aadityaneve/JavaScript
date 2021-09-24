@@ -1,0 +1,334 @@
+<!-- 
+    Problem
+    Home.html should have a navbar like all other pages discussed in assignment1.
+    Implement a slideshow(carousel) on the homepage using pure Js, no HTML allowed. 
+    we have learned about DOM methods like createElement, setAttribute, append, remove so use them.
+ -->
+
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Home</title>
+    <!-- <script src="navbar.js"></script> -->
+    <style>
+        /* #logoDiv {} */
+
+        #logoImg {
+            width: 10%;
+        }
+
+        #navbar {
+            border: 1px solid black;
+
+            background-color: #459C98;
+        }
+
+        ul {
+            list-style-type: none;
+
+            display: flex;
+
+            justify-content: right;
+            gap: 0% 8%;
+
+            padding: 0% 5% 0% 1%;
+
+            font-size: 100%;
+            font-weight: 900;
+            font-family: sans-serif;
+        }
+       
+
+        #slideshowDiv {
+            margin: auto;
+            text-align: center;
+        }
+
+        img {
+            width: 80%;
+        }
+
+        #moviesDiv {
+            margin: auto;
+            width: 80%;
+
+            /* padding: 3%; */
+            justify-content: center;
+
+            display: grid;
+            grid-template-columns: auto auto auto;
+            grid-template-rows: auto auto auto;
+            gap: 4%;
+
+            box-sizing: border-box;
+        }
+
+        #moviesDiv div {
+            border: 3px solid black;
+            width: 100%;
+            height: 70%;
+        }
+        #moviesDiv img {
+            width: 100%;
+            height: 100%;
+        }
+
+        #sortingButtons {
+            margin: auto;
+            padding: 3%;
+            
+            display: grid;
+            grid-template-columns: auto auto;
+            gap: 0% 1%;
+            justify-content: right;
+        }
+
+
+    </style>
+</head>
+
+<body>
+
+    <div id="logoDiv">
+        <img id="logoImg" src="./images/logo.jpeg" alt="">
+    </div>
+
+    <nav id="navbar">
+        <ul>
+            <li>Home</li>
+            <li>Login</li>
+            <li>Signup</li>
+        </ul>
+    </nav>
+
+    <!-- <div id="buttons"></div> -->
+
+    <div id="slideshowDiv"></div>
+    <div id="sortingButtons"></div>
+    <div id="moviesDiv"></div>
+
+
+
+    <script>
+
+        let slideshowDiv = document.getElementById('slideshowDiv');        
+        let interval;
+
+        let images = [
+            "https://wallpapercave.com/wp/wVMsPCF.jpg",
+            "https://wallpapercave.com/wp/iptrxid.jpg",
+            "https://wallpapercave.com/wp/thOYa4Q.jpg"
+        ];
+
+        function slideshow() {
+            let count = 0;
+
+            let img = document.createElement('img');
+            img.src = images[count];
+            slideshowDiv.append(img);
+            count++;
+
+            interval = setInterval(function () {    
+                slideshowDiv.innerHTML = null;
+                
+                if (count === images.length) {
+                    count = 0;
+                }
+
+                let img = document.createElement('img');
+                img.src = images[count];
+                slideshowDiv.append(img);
+                count++;
+            }, 3000);
+
+        }
+
+
+        function startSlideshow() {
+            slideshow();
+            // console.log('hi');
+        }
+
+        function stopSlideshow() {
+            clearInterval(interval);
+        }
+
+        startSlideshow();
+
+        // let buttons = document.getElementById('buttons');
+
+        // let startBtn = document.createElement('button');
+        // startBtn.innerText = "START";
+        // startBtn.onclick = function() {
+        //     startSlideshow();
+        // }
+
+        // let stopBtn = document.createElement('button');
+        // stopBtn.innerText = "STOP";
+        // stopBtn.onclick = function() {
+        //     stopSlideshow();
+        // }
+
+
+        // buttons.append(startBtn, stopBtn);
+
+
+
+
+        /* 
+            Problem
+            Create a database of movies of your choice. Each movie object will have properties like ‘name, 
+            release date, poster (add url of a poster), IMDb rating, etc.
+            Create at least 9 movies object, push all of them as array items. Store the array in local storage.
+            Whenever the user visits home.html, show the movies in 3*3 grid ( 3 columns, 3 rows ).
+            Use pure Js, do not use HTML for appending the movies to DOM.
+        */
+
+
+        if(localStorage.getItem('movies') === null){
+            localStorage.setItem('movies', JSON.stringify([]));
+        }
+
+        let movies = JSON.parse(localStorage.getItem('movies'));
+
+        let allMovies = [
+            {
+                name: 'The Shawshank Redemption',
+                releaseDate: '1994',
+                poster: 'https://wallpapercave.com/wp/wp2014258.jpg',
+                rating: '9.2'
+            },          
+            {
+                name: 'Inception',
+                releaseDate: '2010',
+                poster: 'https://wallpapercave.com/wp/wp7178248.jpg',
+                rating: '8.7'
+            },
+            {
+                name: 'The Matrix',
+                releaseDate: '1999',
+                poster: 'https://wallpapercave.com/wp/XrWsBJd.jpg',
+                rating: '8.6'
+            },
+            {
+                name: 'Interstellar',
+                releaseDate: '2014',
+                poster: 'https://wallpapercave.com/wp/wp1817968.jpg',
+                rating: '8.5'
+            },
+            {
+                name: 'Parasite',
+                releaseDate: '2019',
+                poster: 'https://wallpapercave.com/wp/wp5510252.jpg',
+                rating: '8.5'
+            },
+            {
+                name: 'The Departed',
+                releaseDate: '2006',
+                poster: 'https://wallpapercave.com/wp/wp2329753.jpg',
+                rating: '8.5'
+            },
+            {
+                name: 'The Godfather',
+                releaseDate: '1972',
+                poster: 'https://wallpapercave.com/wp/pTIkU1c.jpg',
+                rating: '9.1'
+            },
+            {
+                name: 'The Dark Knight',
+                releaseDate: '2008',
+                poster: 'https://wallpapercave.com/wp/wp3425827.jpg',
+                rating: '9.0'
+            },
+            {
+                name: '12 Angry Men',
+                releaseDate: '1957',
+                poster: 'https://wallpapercave.com/wp/wp2347377.jpg',
+                rating: '8.9'
+            }
+        ]
+
+
+
+        let moviesDiv = document.getElementById('moviesDiv');
+        let cnt = 0;
+        
+        function showMovies(sortedData){
+            moviesDiv.innerHTML = null;
+
+            allMovies.forEach(function(movie){
+                console.log(movie.poster);
+
+                let movieCard = document.createElement('div');
+                let img = document.createElement('img');
+                    img.src = movie.poster;
+                let name = document.createElement('h2');
+                    name.innerText = movie.name;
+                let date = document.createElement('h3');
+                    date.innerText = movie.releaseDate;
+                let rating = document.createElement('h3');
+                    rating.innerText = movie.rating;
+
+
+
+                movieCard.append(img, name, date, rating);
+                moviesDiv.append(movieCard);
+                cnt++;
+            });
+        }
+        showMovies();
+
+              
+
+
+
+
+
+        /* 
+            Problem
+            Create three buttons between the navbar and products showcase. ‘Sort by low rating to high,
+            Sort by High rating to low`
+            When a user clicks on any of the above buttons,
+            he should be able to see to the movies in a sorted fashion depending on their IMDb ratings.
+        */
+
+
+
+        let sortingButtons = document.getElementById('sortingButtons');
+        let btnHighLow = document.createElement('button');
+            btnHighLow.innerText = 'Sort High to Low';
+            btnHighLow.addEventListener('click', function(){
+
+                let highLowSortedData = allMovies.sort(function(element1, element2){
+                    return element2.rating - element1.rating;
+                });
+                showMovies(highLowSortedData);
+            });
+
+        let btnLowHigh = document.createElement('button');
+            btnLowHigh.innerText = 'Sort Low to High';
+            btnLowHigh.addEventListener('click', function(){
+
+                let lowHighSortedData = allMovies.sort(function(element1, element2){
+                    return element1.rating - element2.rating;
+                });
+                showMovies(lowHighSortedData);
+            });
+
+            sortingButtons.append(btnLowHigh, btnHighLow);
+
+
+
+
+
+    </script>
+
+
+</body>
+
+</html>
