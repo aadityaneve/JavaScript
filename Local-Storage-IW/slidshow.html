@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        #mySlidshow {
+            transition-duration: 500ms;
+            animation-delay: 500ms;
+        }
+
+        img {
+            width: 60%;
+            /* height: 800px; */
+        }
+    </style>
+</head>
+
+<body>
+    <h1>Slidshow</h1>
+    <button onclick="stopInterval()">STOP</button>
+    <button onclick="start()">START</button>
+    <div id="mySlidshow"></div>
+
+
+    <script>
+
+        let images = [
+            "https://images.pexels.com/photos/733745/pexels-photo-733745.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260",
+            "https://images.pexels.com/photos/3311574/pexels-photo-3311574.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260",
+            "https://images.pexels.com/photos/4536012/pexels-photo-4536012.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260",
+        ];
+
+
+        // let images = [
+        //     "https://images.pexels.com/photos/1231643/pexels-photo-1231643.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500",
+        //     "https://images.pexels.com/photos/241316/pexels-photo-241316.jpeg?auto=compress&cs=tinysrgb&dpr=2&w=500",
+        //     "https://images.pexels.com/photos/2882234/pexels-photo-2882234.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500"
+        // ];
+
+        let container = document.getElementById('mySlidshow');
+        let interval;
+
+        function startSlidshow() {
+
+            let counter = 0;
+            let img = document.createElement('img');
+            img.src = images[counter];
+            container.append(img);
+            counter++;
+
+            interval = setInterval(function () {
+                container.innerHTML = null;
+
+                if (counter === images.length) {
+                    counter = 0;
+                }
+
+                let img = document.createElement('img');
+
+                img.src = images[counter];
+
+                container.append(img);
+                counter++;
+
+            }, 100);
+
+        }
+
+        function start(){
+            startSlidshow();
+        }        
+
+        function stopInterval(){
+            clearInterval(interval);
+        }
+
+
+    </script>
+
+
+</body>
+
+</html>
