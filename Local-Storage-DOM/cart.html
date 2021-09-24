@@ -1,0 +1,144 @@
+<!-- 
+    Problem
+    Create Cart.html. Show all the products that have been added to the cart.
+    On the top right corner, show the total number of items added to the cart and total price of the cart.
+ -->
+
+
+ <!DOCTYPE html>
+ <html lang="en">
+ <head>
+     <meta charset="UTF-8">
+     <meta http-equiv="X-UA-Compatible" content="IE=edge">
+     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+     <title>Cart</title>
+     <style>
+
+        body {
+            display: grid;
+
+            box-sizing: border-box;
+
+            grid-template-columns: auto 200px;        
+            gap: 1%;
+        }
+
+        #productsDiv {
+            background-color: whitesmoke;
+            margin: auto;
+            padding: 3%;
+
+            box-sizing: border-box;
+
+            width: 80%;
+            padding: 3%;
+
+            display: grid;
+            grid-template-columns: auto auto auto auto;
+            gap: 2%;
+        }
+
+        #totalPriceAndProducts {
+            width: 100%;
+            
+            display: grid;
+            grid-template-columns: auto;
+        }
+
+        img {
+            width: 100%;
+            height: 200px;
+        }
+
+        button {
+            margin: auto;
+            padding: 3%;
+            text-align: center;
+            font-size: 15px;
+        }
+
+        #totalPriceAndProducts button {
+            background-color: lightsalmon;
+        }
+
+        .card {
+            border: 1px solid black;
+            width: 100%;
+        }
+
+     </style>
+ </head>
+ <body>
+     
+    <div id="productsDiv"></div>
+    <div id="totalPriceAndProducts"></div>
+
+    <script>
+
+        let productsDiv = document.getElementById('productsDiv');
+        let basket = JSON.parse(localStorage.getItem('basket'));
+        let totalPrice = 0;
+        let totalProducts = 0;
+
+        function displayBasketProducts(){
+
+            basket.forEach(function (product) {
+
+                let div = document.createElement('div');
+                    div.setAttribute('class','card');
+                let img = document.createElement('img');
+                    img.src = product.img;
+
+                let price = document.createElement('h3');
+                    price.innerText = product.price;
+
+                let name = document.createElement('h4');
+                    name.innerText = product.name;
+
+                div.append(img, price, name);
+
+                totalPrice += Number(product.price);
+                totalProducts++;                
+
+                productsDiv.append(div);
+            });
+
+        }
+        displayBasketProducts();
+
+        let totalPriceAndProducts = document.createElement('div');
+            let totalPriceh2 = document.createElement('h2');
+                totalPriceh2.innerText = "Amount: "+totalPrice;
+            let totalProductsh3 = document.createElement('h3');                
+                totalProductsh3.innerText = "Products: "+totalProducts;
+
+            let promoCode = document.createElement('input');
+                promoCode.placeholder = 'Promo Code';
+
+            let promoString = "";
+                promoCode.addEventListener('keypress', function (logKey){
+                    // console.log(logKey.key);
+                    promoString+=logKey.key;
+                    // console.log(promoString);
+                    if(promoString === 'masai30'){
+                        totalPriceh2.innerText = 'Amount: '+(totalPrice - (30/(100))*totalPrice);
+                    }else{
+                        totalPriceh2.innerText = "Amount: "+totalPrice;
+                    }
+                });           
+            
+            let checkOutBtn = document.createElement('button');
+                checkOutBtn.innerText = 'Check Out';
+                checkOutBtn.addEventListener('click', function(event){
+                    window.location.href = 'success.html';
+                })
+
+            totalPriceAndProducts.append(totalPriceh2, totalProductsh3, promoCode, checkOutBtn);
+            document.getElementById('totalPriceAndProducts').append(totalPriceAndProducts);
+
+        localStorage.setItem('basket', JSON.stringify(basket));
+
+    </script>
+
+ </body>
+ </html>

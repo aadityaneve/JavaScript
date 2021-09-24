@@ -1,0 +1,129 @@
+<!-- 
+    Problem
+    Create Products.html. Show all the products you have stored in local storage.
+    Price, Name, and Image should be visible. Each row should show 4 products each
+    Each product should have a ‘Add to Cart’ button.
+    When clicked, the product should get added to the user’s cart. Store products added in the cart to localstorage.
+    Show an alert if you try to add a product that is already in the cart.
+ -->
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Products</title>
+    <style>
+
+        #productsDiv {
+            background-color: whitesmoke;
+            margin: auto;
+            padding: 3%;
+
+            width: 70%;
+            padding: 3%;
+
+            display: grid;
+            grid-template-columns: auto auto auto auto;
+            gap: 2%;
+        }
+
+        img {
+            width: 100%;
+            height: 200px;
+        }
+
+        button {
+            margin: auto;
+            padding: 3%;
+            text-align: center;
+            font-size: 15px;
+        }
+
+        .card {
+            border: 1px solid black;
+            width: 100%;
+        }
+
+    </style>
+</head>
+
+<body>
+
+    <div id="productsDiv"></div>
+
+    <script>
+
+        let productsDiv = document.getElementById('productsDiv');
+        let productsList = JSON.parse(localStorage.getItem('productsList'));
+        // console.log(productsList);
+
+        function displayProducts() {
+
+            productsList.forEach(function (product) {
+                let div = document.createElement('div');
+                    div.setAttribute('class','card');
+
+                let img = document.createElement('img');
+                    img.src = product.img;
+
+                let productPrice = document.createElement('h3');
+                    productPrice.innerText = product.price;
+
+                let productName = document.createElement('h4');
+                    productName.innerText = product.name;
+
+                let addToBasketButton = document.createElement('button');
+                    addToBasketButton.innerText = "Add to Basket";
+
+
+                    addToBasketButton.addEventListener('click', function (event){
+                        addToBasket(product);
+                    });
+
+                                               
+                div.append(img, productPrice, productName, addToBasketButton);
+                productsDiv.append(div);
+            });
+        }
+        displayProducts();
+
+        if(localStorage.getItem('basket') === null){
+            localStorage.setItem('basket', JSON.stringify([]));
+        }
+
+
+        function addToBasket(product){
+
+            let basket = JSON.parse(localStorage.getItem('basket'));
+
+            let x = true;
+            for(let i=0;i<basket.length && x; i++){
+                if(basket[i].name === product.name){
+                    x = false;
+                    break;
+                }                
+                // console.log(basket[i].name == product.name);
+            }
+
+            if(x){
+                basket.push(product);
+                localStorage.setItem('basket', JSON.stringify(basket));
+                // console.log(product);
+            }else{                
+                alert('You already have that product!');
+                localStorage.setItem('basket', JSON.stringify(basket));
+            }
+
+        }
+
+
+        localStorage.setItem('productsList', JSON.stringify(productsList));
+
+    </script>
+
+</body>
+
+</html>

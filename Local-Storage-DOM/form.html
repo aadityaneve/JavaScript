@@ -1,0 +1,99 @@
+<!-- 
+    Problem
+    Create a form.html. create a form there that will allow the user to create new products and add them to local storage.
+    Each product should have a name, price, image. Each new product will be added to the array of products present in local storage.
+ -->
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>form</title>
+    <style>
+        #form {
+            border: 1px solid black;
+            margin: auto;
+            padding: 3%;
+            background-color: whitesmoke;
+
+            display: grid;
+            grid-template-columns: auto;
+            vertical-align: center;
+            gap: 3%;
+
+            width: 400px;
+        }
+
+        button {
+            margin: auto;
+            width: 40%;
+            text-align: center;
+            padding: 2%;
+            background-color: greenyellow;
+        }
+    </style>
+</head>
+
+<body>
+
+    <form id="form"></form>
+
+    <script>
+
+        let form = document.getElementById('form');
+        let labelName = document.createElement('label');
+        let inputName = document.createElement('input');
+        let labelPrice = document.createElement('label');
+        let inputPrice = document.createElement('input');
+        let labelImage = document.createElement('label');
+        let inputImage = document.createElement('input');
+        let submitButton = document.createElement('button');
+
+        labelName.htmlFor = "name";
+        labelName.innerText = "Name:";
+        inputName.id = "name";
+
+        labelPrice.htmlFor = "price";
+        labelPrice.innerHTML = "Price:";
+        inputPrice.id = "price";
+        inputPrice.type = "number";
+
+        labelImage.htmlFor = "img";
+        labelImage.innerHTML = "Image-Link:";
+        inputImage.id = "imgLink";
+
+        submitButton.innerText = "SUBMIT";
+
+        form.append(labelName, inputName, labelPrice, inputPrice, labelImage, inputImage, submitButton);
+
+        if (localStorage.getItem('productsList') === null) {
+            localStorage.setItem('productsList', JSON.stringify([]));
+        }
+
+        submitButton.addEventListener('click', function (event) {
+            let name = document.getElementById('name').value;
+            let price = document.getElementById('price').value;
+            let imgLink = document.getElementById('imgLink').value;
+
+            let productsList = JSON.parse(localStorage.getItem('productsList'));
+            let product = {
+                name: name,
+                price: price,
+                img: imgLink
+            }
+            productsList.push(product);
+            localStorage.setItem('productsList', JSON.stringify(productsList));
+
+            // console.log("Our productsList : ",productsList);
+
+            form.reset();
+        });
+
+    </script>
+
+</body>
+
+</html>
