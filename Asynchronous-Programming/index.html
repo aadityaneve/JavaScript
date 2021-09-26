@@ -16,10 +16,17 @@
     <title>Home</title>
     <!-- <script src="navbar.js"></script> -->
     <style>
-        /* #logoDiv {} */
+        /* #logoDiv {
+            
+        } */
+
+        body {
+            background-color: whitesmoke;
+        }
 
         #logoImg {
-            width: 10%;
+            width: 7%;
+            /* box-shadow: 10px 5px 5px lightblue; */
         }
 
         #navbar {
@@ -42,20 +49,53 @@
             font-weight: 900;
             font-family: sans-serif;
         }
-       
+
+        ul li {
+            font-size: 1em;
+            border-radius: 10%;
+            /* padding: 5%; */
+            /* display: block; */
+        }
+        ul li:hover {
+            /* padding: 1%; */
+            /* padding: 5%; */
+            border-radius: 10%;
+            background-color: #5dbbb6;
+
+            cursor: pointer;
+        }
+
 
         #slideshowDiv {
             margin: auto;
             text-align: center;
+            width: 80%;
+
+            /* -webkit-transition: all .3s ease-in-out;
+            -moz-transition: all .3s ease-in-out;
+            transition: all .3s ease-in-out; */
+            box-shadow: 10px 5px 5px lightblue;            
+        }
+
+        #slideshowDiv > img {
+            /* transition: .3s background ease; */
+            
         }
 
         img {
-            width: 80%;
+            width: 100%;
+            height: 100%;
+            /* min-width: 300px; */
+            /* min-height: 400px; */
+            /* -webkit-transition: all .3s ease-in-out;
+            -moz-transition: all .3s ease-in-out;
+            transition: all .3s ease-in-out; */
         }
 
         #moviesDiv {
             margin: auto;
-            width: 80%;
+            width: 80vw;
+            height: 80vh;
 
             /* padding: 3%; */
             justify-content: center;
@@ -63,25 +103,35 @@
             display: grid;
             grid-template-columns: auto auto auto;
             grid-template-rows: auto auto auto;
-            gap: 4%;
+            gap: 1%;
 
             box-sizing: border-box;
+            /* align-items: stretch; */
         }
 
-        #moviesDiv div {
-            border: 3px solid black;
-            width: 100%;
-            height: 70%;
+        #moviesDiv>div {
+            margin: auto;
+            text-align: center;
+            border: 0.2em solid black;
+            width: 90%;
+            height: 80%;
+
+            box-sizing: border-box;
+            word-wrap: break-word;
+            box-shadow: 10px 5px 10px lightblue;
+
+            text-shadow: 2px 1px 1px lightblue;
         }
+
         #moviesDiv img {
             width: 100%;
-            height: 100%;
+            height: 70%;
         }
 
         #sortingButtons {
             margin: auto;
             padding: 3%;
-            
+
             display: grid;
             grid-template-columns: auto auto;
             gap: 0% 1%;
@@ -89,20 +139,36 @@
         }
 
 
+        /* Fading Animation */        
+        .fade {
+            -webkit-animation-name: fade;
+            -webkit-animation-duration: 1.5s;
+            animation-name: fade;
+            animation-duration: 1.5s;
+        }
+        @-webkit-keyframes fade {
+            from { opacity: .1 }
+            to { opacity: 1 }
+        }
+        @keyframes fade {
+            from { opacity: .1}
+            to { opacity: 1 }
+        }
+
     </style>
 </head>
 
 <body>
 
     <div id="logoDiv">
-        <img id="logoImg" src="./images/logo.jpeg" alt="">
+        <img id="logoImg" src="./images/logo.png" alt="">
     </div>
 
     <nav id="navbar">
         <ul>
-            <li>Home</li>
-            <li>Login</li>
-            <li>Signup</li>
+            <li id="home">Home</li>
+            <li id="login">Login</li>
+            <li id="signup">Signup</li>
         </ul>
     </nav>
 
@@ -116,7 +182,22 @@
 
     <script>
 
-        let slideshowDiv = document.getElementById('slideshowDiv');        
+        let home = document.getElementById('home');
+            home.addEventListener('click', function (){
+                window.location.href = 'index.html';
+            });
+        let login = document.getElementById('login');
+            login.addEventListener('click', function () {
+                window.location.href = 'signin.html';
+            });
+        let signup = document.getElementById('signup');
+            signup.addEventListener('click', function () {
+                window.location.href = 'signup.html';
+            });
+
+
+
+        let slideshowDiv = document.getElementById('slideshowDiv');
         let interval;
 
         let images = [
@@ -130,21 +211,23 @@
 
             let img = document.createElement('img');
             img.src = images[count];
+            img.setAttribute('class','fade');
             slideshowDiv.append(img);
             count++;
 
-            interval = setInterval(function () {    
+            interval = setInterval(function () {
                 slideshowDiv.innerHTML = null;
-                
+
                 if (count === images.length) {
                     count = 0;
                 }
 
                 let img = document.createElement('img');
                 img.src = images[count];
+                img.setAttribute('class','fade');
                 slideshowDiv.append(img);
                 count++;
-            }, 3000);
+            }, 5000);
 
         }
 
@@ -190,7 +273,7 @@
         */
 
 
-        if(localStorage.getItem('movies') === null){
+        if (localStorage.getItem('movies') === null) {
             localStorage.setItem('movies', JSON.stringify([]));
         }
 
@@ -202,7 +285,7 @@
                 releaseDate: '1994',
                 poster: 'https://wallpapercave.com/wp/wp2014258.jpg',
                 rating: '9.2'
-            },          
+            },
             {
                 name: 'Inception',
                 releaseDate: '2010',
@@ -257,22 +340,22 @@
 
         let moviesDiv = document.getElementById('moviesDiv');
         let cnt = 0;
-        
-        function showMovies(sortedData){
+
+        function showMovies(sortedData) {
             moviesDiv.innerHTML = null;
 
-            allMovies.forEach(function(movie){
+            allMovies.forEach(function (movie) {
                 console.log(movie.poster);
 
                 let movieCard = document.createElement('div');
                 let img = document.createElement('img');
-                    img.src = movie.poster;
+                img.src = movie.poster;
                 let name = document.createElement('h2');
-                    name.innerText = movie.name;
+                name.innerText = movie.name;
                 let date = document.createElement('h3');
-                    date.innerText = movie.releaseDate;
+                date.innerText = movie.releaseDate;
                 let rating = document.createElement('h3');
-                    rating.innerText = movie.rating;
+                rating.innerText = movie.rating;
 
 
 
@@ -283,7 +366,7 @@
         }
         showMovies();
 
-              
+
 
 
 
@@ -301,26 +384,26 @@
 
         let sortingButtons = document.getElementById('sortingButtons');
         let btnHighLow = document.createElement('button');
-            btnHighLow.innerText = 'Sort High to Low';
-            btnHighLow.addEventListener('click', function(){
+        btnHighLow.innerText = 'Sort High to Low';
+        btnHighLow.addEventListener('click', function () {
 
-                let highLowSortedData = allMovies.sort(function(element1, element2){
-                    return element2.rating - element1.rating;
-                });
-                showMovies(highLowSortedData);
+            let highLowSortedData = allMovies.sort(function (element1, element2) {
+                return element2.rating - element1.rating;
             });
+            showMovies(highLowSortedData);
+        });
 
         let btnLowHigh = document.createElement('button');
-            btnLowHigh.innerText = 'Sort Low to High';
-            btnLowHigh.addEventListener('click', function(){
+        btnLowHigh.innerText = 'Sort Low to High';
+        btnLowHigh.addEventListener('click', function () {
 
-                let lowHighSortedData = allMovies.sort(function(element1, element2){
-                    return element1.rating - element2.rating;
-                });
-                showMovies(lowHighSortedData);
+            let lowHighSortedData = allMovies.sort(function (element1, element2) {
+                return element1.rating - element2.rating;
             });
+            showMovies(lowHighSortedData);
+        });
 
-            sortingButtons.append(btnLowHigh, btnHighLow);
+        sortingButtons.append(btnLowHigh, btnHighLow);
 
 
 
