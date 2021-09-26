@@ -102,13 +102,12 @@
             allUsers.forEach(function (user) {
                 if (email === user.email && password === user.password) {
                     alert('You have successfully logged in.');
-                    window.location.href = 'navbar.html';
-                }else{
+                    window.location.href = 'index.html';
                     flag = 1;
                 }
             });
 
-            if(flag == 1){
+            if(flag == 0){
                 alert('Wrong Credentials.');
             }
 
