@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Payment</title>
+    <style>
+        form {
+            margin: auto;
+            width: 50%;
+            padding: 3%;
+            display: grid;
+            grid-template-rows: auto auto auto auto;
+        }
+    </style>
+</head>
+
+<body>
+
+    <form action="">
+        <label for="name">Name:</label>
+        <input id="name" type="text" placeholder="Name" required>
+
+        <label for="card">Card No:</label>
+        <input id="card" type="number" placeholder="Card" required>
+
+        <label for="mob">Mobile No:</label>
+        <input id="mob" type="number" placeholder="Mob" required>
+
+        <label for="otp">OTP:</label>
+        <input id="otp" type="number" placeholder="otp" required>
+
+        <div id="buttons"></div>
+    </form>
+
+    
+
+    <script src="payment.js"></script>
+</body>
+
+</html>
