@@ -1,0 +1,88 @@
+<!-- 
+Problem
+Create multiple tasks using the constructor function. Make sure to comment on each line describing what it's doing.
+
+create a constructor function Task. Do not use an object literal to create objects, use constructor functions.
+constructor function will have the name of the task, creation date, and status of the task
+default status will be false.
+The name of the task will be accepted using an input box.
+as soon as the user clicks on ‘submit’, show the task on the webpage in list format.
+ -->
+
+
+
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Task</title>
+    <style>
+        .container {
+            border: 1px solid whitesmoke;
+            width: 50%;
+
+            margin: auto;
+            padding: 3%;
+
+            text-align: center;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="container">
+        <!-- Html form -->
+        <form action="">
+            <label for="name">Name:</label>
+            <input type="text" id="name" name="name">
+            
+            <button type="submit" id="submitBtn" value="submt">SUBMIT</button>
+        </form>
+
+        <!-- Div where all tasks will be appended -->
+        <div id="allTasks"></div>
+    </div>
+    
+
+
+    <script>
+
+        // Constructor function
+        // With default value of status is false
+        function Task(name, status = false) {
+            this.name = name,
+            this.date = new Date().getDay() + "/" + new Date().getMonth() + "/" + new Date().getFullYear(),
+            this.status = status
+        }
+
+
+        let list = document.createElement("ul");
+        let allTasks = document.getElementById("allTasks");
+        // Action listener added to submit btn
+        let submitBtn =  document.getElementById("submitBtn");
+            submitBtn.addEventListener('click', function (e){
+                e.preventDefault();
+
+                let name = document.getElementById("name").value;
+                // new object created named: task
+                let task = new Task(name);
+                // console.log(task);
+
+                let li =  document.createElement("li");
+                    li.innerHTML = "<h3>"+(task.name+" "+task.date+" "+task.status)+"</h3>";
+
+                list.append(li);
+
+                allTasks.append(list);
+            });
+
+    </script>
+
+</body>
+
+</html>

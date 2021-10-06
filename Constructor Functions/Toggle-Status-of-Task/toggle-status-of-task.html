@@ -1,0 +1,143 @@
+<!-- 
+    Problem
+    this is an extension of the above problem.
+    add a function named toggle_task.
+    if you invoke that function then it will toggle the status.
+    for e.g. if the status is false, after invoking the toggle_task function, the status will be true and vice versa.
+ -->
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Toggle Status Of Task</title>
+    <style>
+        .container {
+            border: 1px solid whitesmoke;
+            width: 50%;
+
+            margin: auto;
+            padding: 3%;
+
+            text-align: center;
+        }
+
+        li {
+            /* text-decoration: none; */
+            list-style-type: none;
+        }
+    </style>
+</head>
+
+<body>
+
+
+    <div class="container">
+        <!-- Html form -->
+        <form action="">
+            <label for="name">Name:</label>
+            <input type="text" id="name" name="name">
+
+            <button type="submit" onclick="addTask(event)" id="submitBtn" value="submit">SUBMIT</button>
+            <!-- <button id="toggleTask" value="toggle">Toggle Task</button> -->
+        </form>
+
+        <!-- Div where all tasks will be appended -->
+        <div id="allTasks"></div>
+    </div>
+
+
+
+    <script>
+
+        // array for all tasks
+        var AllTasks = new Array();
+        let taskCounter = 0;
+        // console.log(taskCounter);
+
+
+        // Constructor function
+        // With default value of status is false
+        function Task(id, name, status = false) {
+            this.id = id,
+            this.name = name,
+            this.date = new Date().getDay() + "/" + new Date().getMonth() + "/" + new Date().getFullYear(),
+            this.status = status
+        }
+
+
+        let list = document.createElement("ul");
+        let allTasks = document.getElementById("allTasks");
+        
+        function addTask(e){
+            
+            e.preventDefault();
+
+            let name = document.getElementById("name").value;
+                // new object created named: task
+            AllTasks[taskCounter] = new Task(taskCounter, name);
+            // console.log(AllTasks);
+            // console.log(taskCounter);
+
+            let li =  document.createElement("li");
+                li.setAttribute("id", taskCounter);
+                li.innerHTML = "<h3>"+((taskCounter+1)+" "+AllTasks[taskCounter].name+" "+AllTasks[taskCounter].date+" "+AllTasks[taskCounter].status)+"</h3>";
+
+            // Toggle task button created
+            let toggleTaskBtn = document.createElement("button");
+                toggleTaskBtn.innerText = "Toggle Task";
+                toggleTaskBtn.addEventListener('click', function (){                            
+                    // console.log(li.innerText[0]);
+                    // console.log(AllTasks[li.innerText[0]-1]);
+
+                    // grabbing task number of the task
+                    let taskNumber = li.innerText[0]-1;
+
+                    toggleTask(taskNumber, li, toggleTaskBtn);
+
+                    // console.log(AllTasks);                                
+                });
+
+            li.append(toggleTaskBtn);
+            list.append(li);
+
+            allTasks.append(list);
+
+            // increment counter
+            taskCounter++;            
+        }
+
+
+
+        function toggleTask(taskNumber, li, toggleTaskBtn){
+            // current object true/flase toggling
+            if(AllTasks[taskNumber].status == false){
+                AllTasks[taskNumber].status = true;
+
+                let li = document.getElementById(taskNumber);
+                    li.innerHTML = "<h3>"+((taskNumber+1)+" "+AllTasks[taskNumber].name+" "+AllTasks[taskNumber].date+" "+AllTasks[taskNumber].status)+"</h3>";
+                    li.append(toggleTaskBtn);
+            }else{
+                AllTasks[taskNumber].status = false;
+
+                let li = document.getElementById(taskNumber);
+                    li.innerHTML = "<h3>"+((taskNumber+1)+" "+AllTasks[taskNumber].name+" "+AllTasks[taskNumber].date+" "+AllTasks[taskNumber].status)+"</h3>";
+                    li.append(toggleTaskBtn);
+            }
+
+            // console.log(AllTasks);
+        }
+
+
+
+
+    </script>
+
+
+
+</body>
+
+</html>
