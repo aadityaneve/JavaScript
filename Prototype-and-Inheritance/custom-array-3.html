@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Custome Array</title>
+</head>
+
+<body>
+
+
+
+</body>
+
+</html>
+
+
+<script>
+    /* 
+        Problem
+        Use the .Prototype property availible on constructor functions to add custom methods to your Array constructor function.
+        Add the following methods
+        Pushing a new value to the array
+        Reversing the array and returning it
+        printing the array in Array format, not the object one.
+        return the first element from the array
+    */
+
+    // Cunstructor function
+    function OurArray() {
+        // Defining length property
+        Object.defineProperty(this, "length", {
+            value: 0,
+            writable: true,
+            enumerable: false
+        })
+
+        // Setting key value pairs
+        for (let i = 0; i < arguments.length; i++) {
+            this[i] = arguments[i];
+        }
+
+        // Assigning total length to length
+        this.length = arguments.length;
+    }
+
+    // Prototype function push()
+    OurArray.prototype.push = function (value) {
+        this[this.length] = value;
+        this.length++;
+    }
+
+    // Prototype function pop()
+    OurArray.prototype.pop = function () {
+        delete this[this.length - 1];
+        this.length--;
+    }
+
+    // Prototype function aSort()
+    OurArray.prototype.aSort = function () {
+
+        let swapped;
+
+        function swap(arr, elementOne, elementTwo) {
+            let temp = arr[elementOne];
+            arr[elementOne] = arr[elementTwo];
+            arr[elementTwo] = temp;
+        }
+
+        for (let i = 0; i < this.length; i++) {
+            swapped = false;
+            for (let j = 0; j < this.length; j++) {
+                if (this[j] > this[j + 1]) {
+                    swap(this, j, j + 1);
+                    swapped = true;
+                }
+            }
+            if (swapped == false) {
+                break;
+            }
+        }
+        return this;
+    }
+
+    // Prototype function dSort()
+    OurArray.prototype.dSort = function () {
+
+        let swapped;
+
+        function swap(arr, elementOne, elementTwo) {
+            let temp = arr[elementOne];
+            arr[elementOne] = arr[elementTwo];
+            arr[elementTwo] = temp;
+        }
+
+        for (let i = 0; i < this.length; i++) {
+            swapped = false;
+            for (let j = 0; j < this.length; j++) {
+                if (this[j] < this[j + 1]) {
+                    swap(this, j, j + 1);
+                    swapped = true;
+                }
+            }
+            if (swapped == false) {
+                break;
+            }
+        }
+        return this;
+    }
+
+    // Prototype function print()
+    OurArray.prototype.print = function () {
+        var newArr = new Array();
+        for (let i = 0; i < this.length; i++) {
+            newArr.push(this[i]);
+        }
+        console.log(newArr);
+    }
+
+    // Prototype function getFirstElement()
+    OurArray.prototype.getFirstElement = function () {
+        return this[0];
+    }
+
+    // Prototype function getLastElement()
+    OurArray.prototype.getLastElement = function () {
+        return this[this.length - 1];
+    }
+
+    let arr = new OurArray(99, 88, 0, 33, 66, 88, 44);
+
+    arr.push(101)
+    arr.push(105);
+    arr.push(-1);
+    arr.pop();
+    console.log("Ascending Sort : ", arr.aSort());
+    console.log("Descending Sort : ", arr.dSort());
+
+    arr.aSort();
+    arr.print();
+
+    console.log("First Element : ", arr.getFirstElement());
+    console.log("Last Element : ", arr.getLastElement());
+
+
+</script>

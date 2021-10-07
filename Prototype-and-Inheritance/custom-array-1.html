@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Custom Array</title>
+</head>
+
+<body>
+
+
+</body>
+
+</html>
+
+
+<script>
+    /* 
+        Custom Array-I Pending
+        Problem
+        Create your custom Array constructor which should return an Array Object.
+        It should have the property as length depending upon the total no of arguments passed to the constructor function.
+    */
+
+
+    // Cunstructor function
+    function OurArray() {
+        Object.defineProperty(this, "length", {
+            value: 0,
+            writable: true,
+            enumerable: false
+        });
+
+
+        // Setting key value pairs
+        for (let i = 0; i < arguments.length; i++) {
+            this[i] = arguments[i];
+        }
+
+        // Assigning total length to length
+        this.length = arguments.length;
+    }
+
+    // Prototype function push()
+    OurArray.prototype.push = function ( value ){
+        this[this.length] = value;
+        this.length++;
+    }
+
+    // Prototype function pop()
+    OurArray.prototype.pop = function (){
+        delete this[this.length-1];
+        this.length--;
+    }
+
+    // Prototype function aSort() (ascending sort)
+    OurArray.prototype.aSort = function (){
+        // let sortedArray = this.sort( function ( elementOne, elementTwo ){
+        //     return elementOne - elementTwo;
+        // });
+        // return sortedArray;
+
+        let swapped;
+
+        function swap(arr, elementOne, elementTwo){
+            let temp = arr[elementOne];
+            arr[elementOne] = arr[elementTwo];
+            arr[elementTwo] = temp;
+        }
+
+        for( let i = 0;i < this.length - 1; i++){
+            swapped = false;
+            for( let j = 0; j< this.length - i - 1; j++){
+                if(this[j] > this[j+1]){
+                    swap(this, j, j+1);
+                    swapped = true;
+                }
+            }
+            if(swapped == false){
+                break;
+            }
+        }
+        return this;
+    }
+
+    // Prototype function dSort() (descending sort)
+    OurArray.prototype.dSort = function (){
+        
+        var swapped;
+
+        function swap(arr, elementOne, elementTwo){
+            let temp = arr[elementOne];
+            arr[elementOne] = arr[elementTwo];
+            arr[elementTwo] = temp;
+        }
+
+        for( let i = 0;i < this.length - 1; i++){
+            swaped = false;
+            for( let j = 0; j< this.length - i - 1; j++){
+                if(this[j] < this[j+1]){
+                    swap(this, j, j+1);
+                    swapped = true;
+                }
+            }
+            if(swapped == false){
+                break;
+            }
+        }
+        return this;
+    }
+
+
+    let arr = new OurArray("Rushi", "Ronit", "Aditya","Saurav","Dayanand");
+
+    arr.push("Pade");
+    arr.pop();
+    arr.pop();
+    arr.push("Chandawale");
+    arr.push("Nachiket");
+    arr.push("Chetan")
+
+    console.log(arr.aSort());
+    console.log(arr.dSort());
+
+    console.log(arr);
+
+
+</script>
