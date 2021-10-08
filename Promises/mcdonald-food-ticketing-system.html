@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.2/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-uWxY/CJNBR+1zjPWmfnSnVxwRheevXITnMqoEIeG1LJrdI0GlVs/9cVSyPYXdcSF" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.10.2/dist/umd/popper.min.js"
+        integrity="sha384-7+zCNj/IqJ95wo16oMtfsKbZ9ccEh31eOz1HGyDuCQ6wgnyJNSYdrPa03rtR1zdB"
+        crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.2/dist/js/bootstrap.min.js"
+        integrity="sha384-PsUw7Xwds7x08Ew3exXhqzbhuEYmA2xnwc8BuD6SEr+UmEHlX8/MCltYEodzWA4u"
+        crossorigin="anonymous"></script>
+    <title>McDonald Food Ticketing System</title>
+</head>
+
+<body>
+
+    <div class="container col-md-10 d-flex p-5">
+
+
+        <form class="col-md-8 justify-content-center p-2" action="" class="">
+            <h1>Chicken & Sandwiches</h1>
+            <div class="custom-control custom-checkbox">
+                <input class="" type="checkbox" name="burger" id="spicyDelux" value="burger1">
+                <label for="spicyDelux" class="custom-control-label">Spicy Delux Chiken Burger</label>
+            </div>
+            <div class="custom-control custom-checkbox">
+                <input type="checkbox" name="burger" id="crispChiken" value="burger2">
+                <label for="crispChiken" class="custom-control-label">Crisp Chiken Burger</label>
+            </div>
+            <div class="custom-control custom-checkbox">
+                <input type="checkbox" name="burger" id="spicyCrispyChiken" value="burger3">
+                <label for="spicyCrispyChiken" class="custom-control-label">Spicy Chrispy Chiken
+                    Burger</label>
+            </div>
+            <button class="btn btn-success btn-group-lg mt-3" onclick="getBurger(event)">Order Food</button>
+        </form>
+
+
+        <div class="col-md-4 justify-content-end p-2" id="displayOrders">
+
+        </div>
+
+    </div>
+    
+    <div class="text-center" id="imageOfProduct">
+
+    </div>
+
+
+
+</body>
+
+</html>
+
+
+<script>
+    /*
+        Problem
+        Have you seen the McDonald's order notification display? Whenever your order is ready, it is displayed on the screen with your order number.
+        Create a button called 'Order Food'. Create a checkbox of multiple food items you can choose from.
+        When a user clicks on order food, create a promise that will resolve after 5 seconds.
+        Once the promise is resolved, show the image of the food in the center and show the order id on the top right corner.
+    */
+
+    let map = {
+        "burger1": "Spicy Delux Chiken Burger",
+        "burger2": "Crisp Chiken Burger",
+        "burger3": "Spicy Chrispy Chiken Burger"
+    }
+    let burger;
+    let orderId;
+    let orderNumber;
+
+    async function getBurger(e) {
+        e.preventDefault();
+        let displayOrders = document.getElementById('displayOrders');
+            displayOrders.innerHTML = null;
+        let imageOfProduct = document.getElementById('imageOfProduct');
+            imageOfProduct.innerHTML = null;
+
+        let promise = new Promise( function( resolve, reject){
+
+            setTimeout( function () {
+                burger = document.querySelectorAll('input[name=burger]:checked');
+                orderId = Math.round(Math.random() * 10000000000);
+                orderNumber = Math.round(Math.random() * 1000);
+        
+                displayOrder();
+                showImage();
+            }, 5000);
+
+        });
+
+        let res = await promise;
+        console.log(res);
+
+    }
+
+
+    function displayOrder() {
+        let displayOrders = document.getElementById('displayOrders');
+        let displayBoard = document.createElement('div');
+        let orderNumberH3 = document.createElement('h3');
+            orderNumberH3.innerText = "Order Number: "+orderNumber;
+
+        let foodItems = document.createElement('div');
+        burger.forEach(function (element){
+            let item = document.createElement('h3');
+                item.innerText = "■ "+map[element.value];
+
+            foodItems.append(item);
+        });
+
+        let orderIdH3 = document.createElement('h3');
+            orderIdH3.innerText = "Order Id: "+orderId;
+
+        displayBoard.append(orderIdH3, orderNumberH3, foodItems);
+        displayOrders.append(displayBoard);
+
+    }
+
+
+    function showImage(){
+
+        let imageOfProduct = document.getElementById('imageOfProduct');
+        let img = document.createElement('img');
+            img.src = "https://www.mcdonalds.com/is/image/content/dam/usa/nfl/nutrition/items/hero/desktop/t-mcdonalds-spicy-deluxe-crispy-chicken-sandwich.jpg?$Product_Desktop$";
+
+            imageOfProduct.append(img);
+    }
+
+
+
+
+</script>
