@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.2/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-uWxY/CJNBR+1zjPWmfnSnVxwRheevXITnMqoEIeG1LJrdI0GlVs/9cVSyPYXdcSF" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.10.2/dist/umd/popper.min.js"
+        integrity="sha384-7+zCNj/IqJ95wo16oMtfsKbZ9ccEh31eOz1HGyDuCQ6wgnyJNSYdrPa03rtR1zdB"
+        crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.2/dist/js/bootstrap.min.js"
+        integrity="sha384-PsUw7Xwds7x08Ew3exXhqzbhuEYmA2xnwc8BuD6SEr+UmEHlX8/MCltYEodzWA4u"
+        crossorigin="anonymous"></script>
+    <title>Vaccine Alert System</title>
+</head>
+
+<body>
+
+    <div class="container text-center">
+        <h1 class="bg-secondary">Vaccine Alert System</h1>
+        <input class="input-group-text d-inline-block" type="text" id="name" placeholder="Enter your name">
+        <input class="input-group-text d-inline-block" type="text" id="age" placeholder="Enter your age">
+        <button class="btn btn-success" onclick="register()">Check Avalibility</button>
+    </div><br>
+    <div class="container text-center" id="vaccineCountDiv">
+
+    </div><br>
+    <div class="container text-center" id="peopleInQueue">
+
+    </div><br><br>
+    <h2 class="text-center">Peoples Vaccinated</h2>
+    <div class="container text-center" id="peoplesVaccinated"></div>
+
+</body>
+
+</html>
+
+
+<script>
+    /*
+        Problem
+        This is an extension to WE session problem 1. Make sure you complete what we discussed and then move on to add the following things.
+        Reduce vaccine count by 1 each time a person is getting vaccinated. If vaccine count is 0, alert vaccine out of stock, visit tomorrow
+        Show count of how many people are still in the queue in real-time.
+        If there is an elderly person (age>60), put them at the start of the queue and not end. This also means you will have to accept age as well along with name using input.
+    */
+
+
+    let queue = ["Messi", "Shaktiman", "Arnold", "Khali", "Ronaldo", "Utkarsh", "Shinchan"];
+    let vaccineCount = 5;
+    let interval;
+
+    function register() {
+
+        let name = document.getElementById("name").value;
+        let age = document.getElementById("age").value;
+
+        if(age >= 60){
+            queue.unshift(name);
+        }else{
+            queue.push(name);
+        }
+
+        alert(`${name} your registration is successfull. You are in a Queue.`);
+
+
+        // Creating Promise
+        let promise = new Promise(function (resolve, reject) {
+
+            let interval2 = setInterval(function () {
+                if (queue[0] === name) {
+                    resolve(`${name} its your turn now!`);
+                    clearInterval(interval2);
+                }
+            }, 1000);
+
+        });
+
+        promise
+            .then(function (resolve){
+                alert(resolve);
+            })
+
+        interval = setInterval(startVaccination, 2000);
+    }
+
+    function startVaccination() {
+
+        let vaccineCountDiv = document.getElementById('vaccineCountDiv');
+            vaccineCountDiv.innerHTML = `<h3>Vaccine Instock: ${vaccineCount} </h3>`;
+
+        let peopleInQueue = document.getElementById("peopleInQueue");
+                peopleInQueue.innerHTML = `<h3>People In Queue: ${queue.length} </h3>`;
+
+        let people = queue.shift();
+
+        let peoplesVaccinated = document.getElementById('peoplesVaccinated');
+        let peopleH3 = document.createElement('h4');
+            peopleH3.innerText = people;
+        peoplesVaccinated.append(peopleH3);
+
+        vaccineCount--;
+
+        if(vaccineCount == 0){
+            vaccineCountDiv.innerHTML = `<h3>Vaccine Instock: ${vaccineCount}`;
+            peopleInQueue.innerHTML = `<h3>People In Queue: ${queue.length} </h3>`;
+            alert("Vaccine Out Of Stock!");
+            clearInterval(interval);
+        }
+
+        if(queue.length == 0){
+            clearInterval(interval);
+        }
+        console.log(queue);
+    }
+
+
+
+</script>
