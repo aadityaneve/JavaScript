@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Inheritance</title>
+</head>
+
+<body>
+
+
+
+
+    <script>
+        /* 
+            Problem
+            Implement the inheritance model of your family both using Object.create() and constructor functions.
+            Starting from your grandparents to your parents you.
+            Create a two min video explaining the prototype chain for the above example. Show proto object.
+        */
+
+
+        const Origin = {
+            sirName: "Neve",
+            money: 5000000,
+            property: 100
+        };
+        let grandParents = Object.create(Origin);
+            grandParents.name = "TikamDas";
+        console.log(grandParents);
+
+
+        function Family(name){
+            this.name = name;
+        }
+        Family.prototype = grandParents;
+
+        let parents = new Family("Satish");
+            console.log(parents);
+
+        let son = new Family("Aditya");
+        console.log(son);
+
+
+
+
+
+
+
+    </script>
+</body>
+
+</html>
