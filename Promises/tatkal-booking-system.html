@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.2/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-uWxY/CJNBR+1zjPWmfnSnVxwRheevXITnMqoEIeG1LJrdI0GlVs/9cVSyPYXdcSF" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.10.2/dist/umd/popper.min.js"
+        integrity="sha384-7+zCNj/IqJ95wo16oMtfsKbZ9ccEh31eOz1HGyDuCQ6wgnyJNSYdrPa03rtR1zdB"
+        crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.2/dist/js/bootstrap.min.js"
+        integrity="sha384-PsUw7Xwds7x08Ew3exXhqzbhuEYmA2xnwc8BuD6SEr+UmEHlX8/MCltYEodzWA4u"
+        crossorigin="anonymous"></script>
+    <title>Tatkal Booking System</title>
+</head>
+
+<body class="bg-info bg-opacity-10">
+
+
+    <div class="container text-center">
+        <h1>Tatkal Booking System</h1>
+        <button class="btn btn-success border-danger p-3" onclick="checkAvailability()"><strong>Check
+                Availability</strong></button>
+        <button class="btn btn-success border-danger p-3" onclick="bookTicket()"><strong>Book Ticket</strong></button>
+
+    </div><br>
+    <div class="container text-center">
+        <h2>Passengers on train.</h2>
+        <div id="BtoG"></div>
+        <div id="MtoG"></div>
+        <div id="PtoG"></div>
+    </div>
+
+    <div class="container" id="bookingForm">
+
+    </div>
+
+
+</body>
+
+</html>
+
+
+<script>
+    /* 
+        Problem
+        This is an extension to WE session problem 1. Make sure you complete what we discussed and then move on to add the following things.
+        Show real-time count of how many passengers are still there in each train.
+        Just like we created cancelTicket function, create a bookTicket function that will randomly book tickets.
+        This means new people will get added to train randomly as well. Keep booking speed low than canceling speed otherwise, you will have to wait till the next unit to get a train.
+        As soon as the train is available, take them to 'Booking.html'. Get all their details using the form and book a ticket for them.
+    */
+
+
+
+    let BtoG = ["Dhoni", "Kohli", "Alan", "Groot", "Jethalal", "Shaktimaan", "Mr bean", "Bhvan Bam"];
+    let MtoG = ["Dhoni", "Kohli", "Alan", "Groot", "Jethalal", "Shaktimaan", "Mr bean", "Bhvan Bam"];
+    let PtoG = ["Dhoni", "Kohli", "Alan", "Groot", "Jethalal", "Shaktimaan", "Mr bean", "Bhvan Bam"];
+
+
+
+
+    let interval;
+    async function checkAvailability() {
+        interval = setInterval(cancelTicket, 2000);
+
+        let promise = new Promise(function (resolve, reject) {
+            setInterval(function () {
+                if (BtoG.length == 4) {
+                    resolve(`BtoG is Available.`);
+                } else if (MtoG.length == 4) {
+                    resolve(`MtoG is Available.`);
+                } else if (PtoG.length == 4) {
+                    resolve(`PtoG is Available.`);
+                }
+            }, 1000)
+        });
+
+        let res = await promise;
+        alert(res);
+
+    }
+
+
+    function cancelTicket() {
+
+        let cancellingSpeed1 = Math.round(Math.random() * 2);
+        let cancellingSpeed2 = Math.round(Math.random() * 2);
+        let cancellingSpeed3 = Math.round(Math.random() * 2);
+
+        setTimeout(function () {
+            BtoG.pop();
+        }, cancellingSpeed1 * 1000);
+
+        setTimeout(function () {
+            MtoG.pop();
+        }, cancellingSpeed2 * 1000);
+
+        setTimeout(function () {
+            PtoG.pop();
+        }, cancellingSpeed3 * 1000);
+
+        console.log("Bombay to Goa: ", BtoG);
+        console.log("Mumbai to Goa: ", MtoG);
+        console.log("Pune to Goa: ", PtoG);
+
+        showPassengersOnTrain(BtoG, MtoG, PtoG);
+
+    }
+
+
+    function showPassengersOnTrain(BtoG, MtoG, PtoG) {
+        let btoG = document.getElementById('BtoG');
+        let mtoG = document.getElementById('MtoG');
+        let ptoG = document.getElementById('PtoG');
+
+        btoG.innerHTML = `<h4> Bombay to Goa: ${BtoG.length}</h4>`;
+        mtoG.innerHTML = `<h4> Mumbai to Goa: ${MtoG.length}</h4>`;
+        ptoG.innerHTML = `<h4> Pune to Goa: ${PtoG.length}</h4>`;
+    }
+
+
+    async function bookTicket() {
+
+        let promise = new Promise(function (resolve, reject) {
+
+            setInterval(function () {
+                if (BtoG.length < Math.round(Math.random() * 8)) {
+                    window.location.href = 'booking.html';
+                } else if (MtoG < Math.round(Math.random() * 8)) {
+                    window.location.href = 'booking.html';
+                } else if (PtoG < Math.round(Math.random() * 8)) {
+                    window.location.href = 'booking.html';
+                }
+            }, 5000);
+
+        });
+
+        let res = await promise;
+        alert(res)
+    }
+
+
+</script>
