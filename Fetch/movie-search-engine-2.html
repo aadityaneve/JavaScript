@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Movie Search Engine I</title>
+    <style>
+        body {
+            background-color: #ffd466;
+        }
+
+        h1 {
+            margin: auto;
+            text-align: center;
+            color: white;
+
+            padding: 1%;
+        }
+
+        #form {
+            margin: auto;
+            width: 80%;
+            padding: 2%;
+
+            display: flex;
+            gap: 1%;
+            justify-content: center;
+
+            height: 2em;
+
+            background-color: whitesmoke;
+            box-shadow: 5px 5px 15px #1A7CC3;
+        }
+
+        #form * {
+            font-size: 1.1rem;
+            text-align: center;
+        }
+
+        #moviesDiv {
+            margin: auto;
+            width: 80%;
+            padding: 3%;
+
+            display: grid;
+            grid-template-columns: 20% 20% 20% 20%;
+            gap: 3%;
+        }
+
+        #moviesDiv > div {
+            background-color: whitesmoke;
+            box-shadow: 5px 5px 15px #1A7CC3;
+        }
+
+        img {
+            width: 100%;
+            height: 70%;
+        }
+
+        button {
+            border: none;
+            border-radius: 3%;
+
+            background-color: #DF0611;
+            color: white;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: #ee2b35;
+        }
+
+        #displayError {
+
+            text-align: center;
+
+            margin : auto;
+            padding: 3%;
+            width: 80%;
+            height: auto;
+            border-radius: 50%;
+        }
+
+        #displayError > img {
+            
+            width: 50%;
+            border-radius: 50%;
+            box-shadow: 5px 5px 15px #1A7CC3;
+        }
+
+        #moviesDiv > div {
+            cursor: pointer;
+        }
+
+    </style>
+</head>
+
+<body>
+
+
+    <h1>Movie Search Engine</h1>
+    <form action="" id="form">
+        <label for="title"><strong>Title</strong></label>
+        <input type="text" id="title" placeholder="Search" autofocus>
+
+        <button type="" onclick="getMovies(event)">SEARCH</button>
+        <button type="reset">RESET</button>
+    </form>
+
+
+    <div id="displayError"></div>
+    <div id="moviesDiv"></div>
+
+
+
+    <script>
+        /* 
+            Problem
+            This is an extension of the above problem.
+            If there is no valid movie of searched name, show an error on the webpage. we would prefer if you could use images or gifs to show the error.
+            If a movie is found, show the movie poster, release date, title, ratings and all the important info.
+            Refer to Hotstar, Netflix, or any other streaming website for design ideas. You are free to create your own design.
+        */
+
+        async function getMovies(e) {
+            e.preventDefault();
+
+            let title = document.getElementById('title').value;
+
+            let response = await fetch(
+                `http://www.omdbapi.com/?apikey=4131a77&s=${title}&plat=full`
+            );
+
+            let data = await response.json();
+            console.log(data.Search);
+
+            if (data.Response === "True") {
+                document.getElementById("displayError").innerHTML = null;
+                moviesDiv.innerHTML = null;
+                showMovies(data.Search);
+            }else{
+                document.getElementById("moviesDiv").innerHTML = null;
+                let displayError = document.getElementById('displayError');
+                let img = document.createElement('img');
+                img.src = "https://cdn.dribbble.com/users/1175431/screenshots/6188233/404-error-dribbble-800x600.gif";
+                displayError.append(img);
+            }
+
+        }
+
+
+        let moviesDiv = document.getElementById('moviesDiv');
+        function showMovies(data) {
+            data.forEach(function (movie) {
+
+                let div = document.createElement('div');
+                div.setAttribute("style", "background-color: whitesmoke;");
+                div.setAttribute("style", "padding: 3%;");
+                let poster = document.createElement('img');
+                poster.src = movie.Poster;
+                let title = document.createElement('h4');
+                title.innerText = movie.Title;
+                let type = document.createElement('p');
+                type.innerText = movie.Type;
+                let year = document.createElement('h4');
+                year.innerText = movie.Year;
+
+
+
+                div.append(poster, title, type, year);
+                moviesDiv.append(div);
+
+            });
+        }
+
+
+
+    </script>
+
+
+</body>
+
+</html>
