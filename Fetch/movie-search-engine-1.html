@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Movie Search Engine I</title>
+    <style>
+        #form {
+            margin: auto;
+            width: 80%;
+            padding: 3%;
+
+            display: flex;
+            gap: 1%;
+            justify-content: center;
+
+            height: 2em;
+
+            background-color: whitesmoke;
+        }
+
+        #form * {
+            font-size: 1.1rem;
+            text-align: center;
+        }
+
+        #moviesDiv {
+            margin: auto;
+            width: 80%;
+            padding: 3%;
+
+            display: grid;
+            grid-template-columns: 20% 20% 20% 20%;
+            gap: 3%;
+        }
+
+        img {
+            width: 100%;
+            height: 70%;
+        }
+
+        button {
+            border: none;
+            border-radius: 3%;
+
+            background-color: green;
+            color: white;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: rgb(250, 162, 162);
+        }
+    </style>
+</head>
+
+<body>
+
+
+    <form action="" id="form">
+
+        <label for="title"><strong>Title</strong></label>
+        <input type="text" id="title" placeholder="Search">
+
+        <button type="" onclick="getMovies(event)">SEARCH</button>
+        <button type="reset">RESET</button>
+    </form>
+
+
+
+    <div id="moviesDiv"></div>
+
+
+
+    <script>
+        /* 
+            Problem
+            Go to omdbapi.com , create account and explore API documentation.
+            Create a decent UI where should be able to search for any movie they want.
+            Make a fetch request and get the data depending on whatever movie you entered.
+            Show the movie data on the app.
+        */
+
+        async function getMovies(e) {
+            e.preventDefault();
+
+            let title = document.getElementById('title').value;
+
+            let response = await fetch(
+                `http://www.omdbapi.com/?apikey=4131a77&s=${title}`
+            );
+
+            let data = await response.json();
+            // console.log(data.Search);
+
+            showMovies(data.Search);
+        }
+
+
+        function showMovies(data) {
+
+            let moviesDiv = document.getElementById('moviesDiv');
+
+            data.forEach(function (movie) {
+
+                let div = document.createElement('div');
+                div.setAttribute("style", "background-color: whitesmoke;");
+                div.setAttribute("style", "padding: 3%;");
+                let poster = document.createElement('img');
+                poster.src = movie.Poster;
+                let title = document.createElement('h4');
+                title.innerText = movie.Title;
+                let type = document.createElement('p');
+                type.innerText = movie.Type;
+                let year = document.createElement('h4');
+                year.innerText = movie.Year;
+
+
+
+                div.append(poster, title, type, year);
+                moviesDiv.append(div);
+
+            });
+        }
+
+
+
+
+    </script>
+
+
+</body>
+
+</html>
