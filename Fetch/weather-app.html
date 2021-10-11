@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Weather App</title>
+</head>
+
+<body>
+
+    <h1>Weather App</h1>
+    <input type="text" id="city" placeHolder="Enter City Name">
+    <button id="btn" type="submit" onclick="getWeather()">Get Weather</button>
+
+    <div id="dataDiv"></div>
+
+    <script>
+
+        // fac5c6723c790a6008188771744b7add
+
+        // fetch('https://api.openweathermap.org/data/2.5/weather?q=pune&appid=fac5c6723c790a6008188771744b7add')
+        //     .then(function (res) {
+        //         return res.json()
+        //     })
+
+        //     .then(function (res) {
+        //         console.log(res)
+        //     })
+
+
+        async function getWeather() {
+
+            let city = document.getElementById('city').value;
+            console.log(city);
+
+            let res = await fetch(
+                `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=fac5c6723c790a6008188771744b7add`
+            );
+
+            let data = await res.json();
+            // console.log(data);
+            showWeather(data);
+        }
+
+        let dataDiv = document.getElementById('dataDiv');
+        function showWeather(data) {
+            let name = document.createElement('h3');
+                name.innerText = data.name;
+
+            let temp = document.createElement('h4');
+                temp.innerText = Math.round(data.main.temp -273.15)+" °C";
+
+            dataDiv.append(name, temp);
+        }
+
+
+    </script>
+
+</body>
+
+</html>

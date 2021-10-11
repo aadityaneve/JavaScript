@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fetch</title>
+    <style>
+        #productsDiv {
+            width: 80%;
+            margin: auto;
+
+            display: grid;
+            grid-template-columns: repeat(4, 25%);
+            gap: 3%;
+
+            padding: 3%;
+            
+
+            border: 1px solid red;
+        }
+
+        img {
+            width: 100%;
+        }
+    </style>
+</head>
+
+<body>
+
+
+    <div id="productsDiv"></div>
+
+
+    <script>
+
+
+        // Request and Response 
+
+        // Fetch
+
+
+
+        // We need a api which can provide the data for free
+
+
+
+        // fetch('https://fakestoreapi.com/products?limit=5')
+        //     .then(res => res.json())
+        //     .then(json => console.log(json))
+
+
+        // 0 - get the Right URL
+        // 1 - handle the Promise
+        // 2 - .then and .catch / async await
+
+
+        // console.log(fetch('https://fakestoreapi.com/products'));
+
+
+        fetch('https://fakestoreapi.com/products')
+            .then(function (res) {
+                return res.json();
+            })
+
+            .then(function (res) {
+                console.log("RES:", res);
+                showProducts(res);
+            });
+
+
+
+        function showProducts(data) {
+
+            let productsDiv = document.getElementById('productsDiv');
+
+            data.forEach(function (product) {
+
+                let div = document.createElement('div');
+                div.setAttribute("style", "width: 100%;");
+                let img = document.createElement('img');
+                img.src = product.image;
+                let title = document.createElement('h4');
+                title.innerText = product.title;
+                let desc = document.createElement('p');
+                desc.innerText = product.description;
+                let price = document.createElement('h4');
+                price.innerText = "$ "+product.price;
+
+
+
+                div.append(img, title, desc, price);
+                productsDiv.append(div);
+
+            });
+
+        }
+
+
+
+
+
+    </script>
+
+
+</body>
+
+</html>
