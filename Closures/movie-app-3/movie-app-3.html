@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Movie Search Engine III</title>
+    <style>
+        body {
+            background-color: #ffd466;
+        }
+
+        h1 {
+            margin: auto;
+            text-align: center;
+            color: white;
+
+            padding: 1%;
+        }
+
+        #form {
+            margin: auto;
+            width: 80%;
+            padding: 2%;
+
+            display: flex;
+            gap: 1%;
+            justify-content: center;
+
+            height: 2em;
+
+            background-color: whitesmoke;
+            box-shadow: 5px 5px 15px #1A7CC3;
+        }
+
+        #form * {
+            font-size: 1.5vw;
+            text-align: center;
+        }
+
+        #moviesDiv {
+            margin: auto;
+            width: 80%;
+            padding: 3%;
+
+            display: grid;
+            grid-template-columns: 18vw 18vw 18vw 18vw;
+            grid-auto-rows: 60vh;
+            gap: 3%;
+        }
+
+        #moviesDiv>div {
+            background-color: whitesmoke;
+            box-shadow: 5px 5px 15px #1A7CC3;
+        }
+
+        img {
+            width: 100%;
+            height: 60%;
+        }
+
+        button {
+            border: none;
+            border-radius: 3%;
+
+            background-color: #DF0611;
+            color: white;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: #ee2b35;
+        }
+
+        #displayError {
+
+            text-align: center;
+
+            margin: auto;
+            padding: 3%;
+            width: 80%;
+            height: auto;
+            border-radius: 50%;
+        }
+
+        #displayError>img {
+
+            width: 50%;
+            border-radius: 50%;
+            box-shadow: 5px 5px 15px #1A7CC3;
+        }
+
+        #moviesDiv>div {
+            cursor: pointer;
+        }
+
+        #moviesDiv>div h4,
+        #moviesDiv>div p {
+            margin-top: 10%;
+            font-size: 1vw;
+        }
+
+
+
+
+        @media screen and (max-width: 678px) {
+
+            #moviesDiv {
+                margin: auto;
+                width: 80%;
+                padding: 3%;
+
+                grid-template-columns: 18vw 18vw 18vw 18vw;
+                grid-auto-rows: 50vh;
+                gap: 3%;
+            }
+
+            img {
+                width: 100%;
+                height: 50%;
+            }
+
+            #moviesDiv>div h4,
+            #moviesDiv>div p {
+                margin-top: 10%;
+                font-size: 2vw;
+            }
+
+        }
+    </style>
+</head>
+
+<body>
+
+
+    <h1>Movie Search Engine</h1>
+    <form action="" id="form">
+
+        <button id="topRatedMoviesBtn" onclick="getTopRatedMovies(event)">Top Rated</button>
+        <button id="trendingMoviesBtn" onclick="getTrendingMovies(event)">Popular</button>
+
+        <label for="title"><strong>Title</strong></label>
+        <input oninput="debounce(main, 1000)" type="text" id="title" placeholder="Search" autofocus>
+
+        <!-- <button type="" onclick="getMovies(event)">SEARCH</button> -->
+        <button type="reset">RESET</button>
+    </form>
+
+
+    <div id="displayError"></div>
+    <div id="moviesDiv"></div>
+
+
+
+    <script src="main.js">
+    </script>
+
+
+</body>
+
+</html>
