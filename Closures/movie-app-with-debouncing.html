@@ -1,0 +1,252 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Movie Search Engine III</title>
+    <style>
+        body {
+            background-color: #ffd466;
+        }
+
+        h1 {
+            margin: auto;
+            text-align: center;
+            color: white;
+
+            padding: 1%;
+        }
+
+        #form {
+            margin: auto;
+            width: 80%;
+            padding: 2%;
+
+            display: flex;
+            gap: 1%;
+            justify-content: center;
+
+            height: 2em;
+
+            background-color: whitesmoke;
+            box-shadow: 5px 5px 15px #1A7CC3;
+        }
+
+        #form * {
+            font-size: 1.1rem;
+            text-align: center;
+        }
+
+        #moviesDiv {
+            margin: auto;
+            width: 80%;
+            padding: 3%;
+
+            display: grid;
+            grid-template-columns: 20% 20% 20% 20%;
+            gap: 3%;
+        }
+
+        #moviesDiv>div {
+            background-color: whitesmoke;
+            box-shadow: 5px 5px 15px #1A7CC3;
+        }
+
+        img {
+            width: 100%;
+            height: 60%;
+        }
+
+        button {
+            border: none;
+            border-radius: 3%;
+
+            background-color: #DF0611;
+            color: white;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: #ee2b35;
+        }
+
+        #displayError {
+
+            text-align: center;
+
+            margin: auto;
+            padding: 3%;
+            width: 80%;
+            height: auto;
+            border-radius: 50%;
+        }
+
+        #displayError>img {
+
+            width: 50%;
+            border-radius: 50%;
+            box-shadow: 5px 5px 15px #1A7CC3;
+        }
+
+        #moviesDiv>div {
+            cursor: pointer;
+        }
+
+
+
+
+        @media screen and (max-width: 678px) {           
+
+            #moviesDiv {
+                margin: auto;
+                width: 80%;
+                padding: 3%;
+
+                display: grid;
+                grid-template-columns: 40% 40%;
+                gap: 3%;
+            }
+
+            img {
+                width: 100%;
+                height: 50%;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+
+    <h1>Movie Search Engine</h1>
+    <form action="" id="form">
+        <label for="title"><strong>Title</strong></label>
+        <input oninput="debounce(main, 1000)" type="text" id="title" placeholder="Search" autofocus>
+
+        <!-- <button type="" onclick="getMovies(event)">SEARCH</button> -->
+        <button type="reset">RESET</button>
+    </form>
+
+
+    <div id="displayError"></div>
+    <div id="moviesDiv"></div>
+
+
+
+    <script>
+        /* 
+            Problem
+            Add debouncing to search engine of your application
+        */
+
+        let timer;
+        async function getMovies(title) {
+            // e.preventDefault();
+            // let title = document.getElementById('title').value;
+
+            let response = await fetch(
+                `http://www.omdbapi.com/?apikey=4131a77&s=${title}&plat=full`
+            );
+
+            let data = await response.json();
+            // console.log(data);
+
+            if (data.Response === "True") {
+                document.getElementById("displayError").innerHTML = null;
+                moviesDiv.innerHTML = null;
+                showMovies(data.Search);
+            } else {
+                document.getElementById("moviesDiv").innerHTML = null;
+                document.getElementById("displayError").innerHTML = null;
+
+                let displayError = document.getElementById('displayError');
+                let img = document.createElement('img');
+                img.src = "https://cdn.dribbble.com/users/1175431/screenshots/6188233/404-error-dribbble-800x600.gif";
+                displayError.append(img);
+            }
+
+        }
+
+        let moviesDiv = document.getElementById('moviesDiv');
+        function showMovies(data) {
+            data.forEach(function (movie) {
+
+                let div = document.createElement('div');
+                div.setAttribute("style", "background-color: whitesmoke;");
+                div.setAttribute("style", "padding: 3%;");
+                let poster = document.createElement('img');
+                poster.src = movie.Poster;
+                let title = document.createElement('h4');
+                title.innerText = movie.Title;
+                let type = document.createElement('p');
+                type.innerText = movie.Type;
+                let year = document.createElement('h4');
+                year.innerText = movie.Year;
+
+
+
+                // Getting rating of movies
+                let rating = document.createElement('h4');
+                let imdbID = movie.imdbID;
+                let ratingValue = 0;
+
+                fetch(`https://www.omdbapi.com/?i=${imdbID}&apikey=4131a77`)
+                    .then(function (res) {
+                        return res.json();
+                    })
+
+                    .then(function (res) {
+                        // console.log(res.Ratings[0].Value);                        
+                        rating.innerText = res.Ratings[0].Value;
+                        // console.log((res.Ratings[0].Value).slice(0 ,3));
+                        ratingValue = Number((res.Ratings[0].Value).slice(0, 3));
+
+
+                        if (ratingValue >= 8.0) {
+                            let recommended = document.createElement('div');
+                            recommended.innerHTML = "<strong>Recommended</strong>"
+                            recommended.setAttribute("style", "z-index: 1; position: absolute; background-color: #ffd466; padding: 0.3em;");
+                            div.append(recommended, poster, title, type, rating, year);
+                        } else {
+                            div.append(poster, title, type, rating, year);
+                        }
+
+                    })
+
+                moviesDiv.append(div);
+
+            });
+        }
+
+
+        function main() {
+            let title = document.getElementById('title').value;
+
+            if (title.length < 3) {
+                return false;
+            }
+
+            getMovies(title);
+        }
+
+        function debounce(main, delay) {
+
+            if (timer) {
+                clearInterval(timer);
+            }
+
+            timer = setTimeout(function () {
+                main();
+            }, delay)
+
+        }
+
+
+    </script>
+
+
+</body>
+
+</html>
