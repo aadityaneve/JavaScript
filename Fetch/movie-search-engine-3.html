@@ -139,6 +139,8 @@
                 showMovies(data.Search);
             } else {
                 document.getElementById("moviesDiv").innerHTML = null;
+                document.getElementById("displayError").innerHTML = null;
+
                 let displayError = document.getElementById('displayError');
                 let img = document.createElement('img');
                 img.src = "https://cdn.dribbble.com/users/1175431/screenshots/6188233/404-error-dribbble-800x600.gif";
@@ -165,7 +167,7 @@
 
 
 
-
+                // Getting rating of movies
                 let rating = document.createElement('h4');
                 let imdbID = movie.imdbID;
                 let ratingValue = 0;
@@ -197,7 +199,6 @@
 
             });
         }
-
 
 
     </script>
