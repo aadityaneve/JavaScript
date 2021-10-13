@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>YouThube</title>
+</head>
+
+<body>
+
+    <form action="">
+        <label for="query"><strong>Search</strong></label>
+        <input type="text" id="query" placeholder="Search for a Video" autofocus>
+        <button onclick="searchVideos(event)" type="">SEARCH</button>
+        <button type="reset">RESET</button>
+    </form>
+
+    <div id="videosDiv"></div>
+
+    <script>
+
+        // q - query
+        // topicId - video
+        // key - api key
+
+        //AIzaSyADOXyrrpD5NUzDCd4bz4oDfLSVFl-DRVw
+        //https://youtube.googleapis.com/youtube/v3/search?q=csk&topicId=video&key=[YOUR_API_KEY]
+
+        let videosDiv = document.getElementById('videosDiv');
+
+        async function searchVideos(e) {
+            e.preventDefault();
+
+            let query = document.getElementById('query').value;
+
+            let response = await fetch(
+                `https://youtube.googleapis.com/youtube/v3/search?q=${query}&topicId=video&key=AIzaSyADOXyrrpD5NUzDCd4bz4oDfLSVFl-DRVw&maxResults=20`
+            )
+
+            let data = await response.json();
+            let videoItems = data.items;
+
+            console.log(videoItems);
+            appendVideos(videoItems);
+        }
+
+
+        function appendVideos(videoData) {
+            videosDiv.innerHTML = null;
+            videoData.forEach(({ id: { videoId } }) => {
+                console.log(videoId);
+
+                let div = document.createElement('div');
+                // Emvade YT video on our app
+                div.innerHTML =
+                    `
+                        <iframe width="560" 
+                            height="315" 
+                            src="https://www.youtube.com/embed/${videoId}" 
+                            title="YouTube video player" 
+                            frameborder="0" 
+                            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+                            allowfullscreen>
+                        </iframe>
+                    `
+
+                videosDiv.append(div);
+
+            })
+
+        }
+
+
+    </script>
+
+</body>
+
+</html>
