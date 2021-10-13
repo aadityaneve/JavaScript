@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>YT - Home</title>
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: auto;
+            padding: 0.5vh;
+        }
+
+        form {
+            margin: auto;
+            width: 80%;
+
+            background-color: #FFFFFF;
+
+            padding: 1%;
+
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+
+            border-bottom: 1px solid lightgrey;
+        }
+
+        #logo img {
+            width: 10vw;
+        }
+
+        #search {
+            display: flex;
+            align-items: center;
+        }
+
+        #search img {
+            width: 1vw;
+        }
+
+        #search input {
+            margin-right: 0px;
+
+            border: 1px solid lightgrey;
+            width: 30vw;
+            height: 5vh;
+        }
+
+        #search button {
+            margin-left: 0px;
+
+            border: 1px solid lightgrey;
+            width: 5vw;
+            height: 5vh;
+        }
+
+        #search>img {
+
+            width: 1vw;
+
+            margin-left: 3%;
+
+            background-color: lightgrey;
+
+            border-radius: 50%;
+            box-sizing: border-box;
+        }
+
+        #videosDiv {
+            margin: auto;
+            width: 80%;
+
+            padding: 2%;
+
+            background-color: #F9F9F9;
+
+            display: grid;
+            grid-template-columns: 24% 24% 24% 24%;
+            gap: 2%;
+        }
+
+        #videosDiv div {
+            width: 30vw;
+            height: 25vh;
+
+            position: relative;
+            overflow: hidden;
+            width: 100%;
+        }
+
+        #videosDiv iframe {
+            position: absolute;
+            top: 0;
+            left: 0;
+            bottom: 0;
+            right: 0;
+            width: 100%;
+            height: 100%;
+        }
+
+        #rightSideButtons {
+            display: flex;
+            gap: 20%;
+
+            justify-content: center;
+
+            align-items: center;
+        }
+
+        #rightSideButtons img {
+            margin-left: 0px;
+
+            width: 2vw;
+            height: 3vh;
+        }
+
+        #rightSideButtons img:nth-child(4) {
+            width: 5vw;
+            height: 5vh
+        }
+    </style>
+</head>
+
+<body>
+
+    <form action="">
+
+        <div id="logo">
+            <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/b/b8/YouTube_Logo_2017.svg/2560px-YouTube_Logo_2017.svg.png"
+                alt="">
+        </div>
+
+
+        <div id="search">
+            <input type="text" id="query" placeholder="Search" autofocus></input>
+            <button onclick="searchVideos(event)" type=""><span><img
+                        src="https://www.pinclipart.com/picdir/big/556-5566107_transparent-fingerprints-clipart-transparent-background-search-icon-png.png"
+                        alt=""></span></button>
+            <img src="https://www.pngkey.com/png/full/400-4007399_png-file-svg-mic-png-icon.png" alt="">
+        </div>
+
+        <div id="rightSideButtons">
+            <img src="https://www.pngkey.com/png/full/110-1107822_video-camera-outline-video-camera-outline-png.png"
+                alt="">
+            <img src="https://www.pngkey.com/png/full/92-926151_grid-clipart-clip-art-grid-clipart-png.pnghttps://img2.pngio.com/grid-icon-of-line-style-available-in-svg-png-eps-ai-icon-fonts-grid-icon-png-256_256.png"
+                alt="">
+            <img src="https://www.pngkey.com/png/full/43-434316_ios-bell-outline-comments-bell-icon-outline-png.png"
+                alt="">
+            <img style="border-radius: 50%;" src="https://s.ws.pho.to/img/index/ai/source.jpg" alt="">
+        </div>
+    </form>
+
+    <div id="videosDiv"></div>
+
+    <script>
+
+        /* 
+            Problem
+            On the homepage of your YT app, the default videos should be the most popular videos in India.
+            Make a GET request to fetch the most popular videos in India and show the data accordingly.
+            Use ES6 throughout.
+        */
+
+
+        // q - query
+        // topicId - video
+        // key - api key
+
+        //https://youtube.googleapis.com/youtube/v3/search?q=csk&topicId=video&key=[YOUR_API_KEY]
+
+
+        async function getMostPopularVideos() {
+
+            let response = await fetch(
+                `https://youtube.googleapis.com/youtube/v3/search?chart=mostPopular&topicId=video&key=AIzaSyAWVBSv9VlRNPF287FeOC_2wJUvoW3LvpM&maxResults=20`
+            )
+
+            let data = await response.json();
+            let videoItems = data.items;
+            appendVideos(videoItems);
+        }
+        getMostPopularVideos();
+
+
+        let videosDiv = document.getElementById('videosDiv');
+        async function searchVideos(e) {
+            e.preventDefault();
+
+            let query = document.getElementById('query').value;
+
+            let response = await fetch(
+                `https://youtube.googleapis.com/youtube/v3/search?q=${query}&topicId=video&key=AIzaSyAWVBSv9VlRNPF287FeOC_2wJUvoW3LvpM&maxResults=20`
+            )
+
+            let data = await response.json();
+            let videoItems = data.items;
+
+            console.log(videoItems);
+            appendVideos(videoItems);
+        }
+
+
+        function appendVideos(videoData) {
+            videosDiv.innerHTML = null;
+            videoData.forEach(({ id: { videoId } }) => {
+                console.log(videoId);
+
+                let div = document.createElement('div');
+                // Emvade YT video on our app
+                div.innerHTML =
+                    `
+                        <iframe width="539" 
+                            height="349" 
+                            src="https://www.youtube.com/embed/${videoId}" 
+                            title="YouTube video player" 
+                            frameborder="0" 
+                            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+                            allowfullscreen>
+                        </iframe>
+                    `
+
+                videosDiv.append(div);
+
+            })
+
+        }
+
+
+    </script>
+
+</body>
+
+</html>
