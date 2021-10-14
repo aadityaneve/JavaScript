@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sign Up</title>
+    <style>
+        #signup {
+            margin: auto;
+            padding: 3%;
+            width: 30%;
+        }
+
+        #signup>form {
+            display: flex;
+            flex-wrap: wrap;
+            flex-direction: column;
+        }
+
+        #signupForm>input {
+            margin: 1%;
+        }
+
+
+        #login {
+            margin: auto;
+            padding: 3%;
+            width: 30%;
+        }
+
+        #login>form {
+            display: flex;
+            flex-wrap: wrap;
+            flex-direction: column;
+        }
+
+        #loginForm>input {
+            margin: 1%;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div id="signup">
+        <h1>SIGN UP</h1>
+        <form action="" id="signupForm" onSubmit="Signup(event)">
+            <input type="text" id="name" name="name" placeholder="Name">
+            <input type="email" id="email" name="email" placeholder="Email">
+            <input type="password" id="password" name="password" placeholder="Password">
+            <input type="text" id="username" name="username" placeholder="User name">
+            <input type="number" id="mobile" name="mobile" placeholder="Mobile">
+            <input type="text" id="description" name="description" placeholder="Description">
+            <input type="submit">
+        </form>
+    </div>
+
+    <div id="login">
+        <h1>LOGIN</h1>
+        <form action="" id="loginForm" onSubmit="Login(event)">
+            <input type="text" id="user" name="username" placeholder="User name">
+            <input type="password" id="pass" name="password" placeholder="Password">
+            <input type="submit">
+        </form>
+    </div>
+
+
+
+    <script>
+
+        async function Signup(e) {
+            e.preventDefault();
+
+
+            let form = document.getElementById('signupForm');
+            // console.log(form);
+
+            let userData = {
+                name: form.name.value,
+                email: form.email.value,
+                password: form.password.value,
+                username: form.username.value,
+                mobile: form.mobile.value,
+                description: form.description.value
+            }
+            // console.log(userData);
+
+            userData = JSON.stringify(userData);
+            // console.log(userData);
+
+            let res = await fetch(
+                `https://masai-api-mocker.herokuapp.com/auth/register`,
+                {
+                    method: 'POST',
+                    body: userData,
+                    headers: {
+                        'Content-Type': 'application/json',
+                    }
+                }
+            )
+
+            let response = res.json();
+            console.log(response);
+        }
+
+
+        async function Login(e) {
+            e.preventDefault();
+
+            let form = document.getElementById('loginForm');
+
+            let userData = {
+                username: form.user.value,
+                password: form.pass.value,
+            }
+            // console.log(userData);
+
+            userData = JSON.stringify(userData);
+            // console.log(userData);
+
+            let res = await fetch(
+                `https://masai-api-mocker.herokuapp.com/auth/login`,
+                {
+                    method: 'POST',
+                    body: userData,
+                    headers: {
+                        'Content-Type': 'application/json',
+                    }
+                }
+            )
+
+            let response = res.json();
+            // console.log(response);
+
+            userData = JSON.parse(userData);
+            response.then((res) => {
+                fetchMyData(userData.username, res.token);
+            })
+
+        }
+
+
+        function fetchMyData(username, token) {
+
+            fetch(
+                `https://masai-api-mocker.herokuapp.com/user/${username}`,
+                {
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Authorization': `Bearer ${token}`
+                    }
+                }
+            )
+                .then((res) => {
+                    console.log(res);
+                })
+                .catch((err) => {
+                    console.log("Error: ", err);
+                })
+
+        }
+
+
+    </script>
+
+
+</body>
+
+</html>
