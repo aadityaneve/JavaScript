@@ -330,7 +330,12 @@ function displayUserName(){
 
     let nameOfUser = JSON.parse(localStorage.getItem('username'));
 
-    userName.innerHTML = `<h2> Welcome! ${nameOfUser[nameOfUser.length-1]}</h2>`;
+    if(nameOfUser.length == 0){
+        userName.innerHTML = `<h2> Welcome!</h2>`;
+
+    }else{
+        userName.innerHTML = `<h2> Welcome! ${nameOfUser[nameOfUser.length-1]}</h2>`;
+    }
 
     localStorage.setItem('username',JSON.stringify(nameOfUser));
 }
