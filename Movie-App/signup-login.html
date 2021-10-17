@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Signup | Login</title>
+    <style>
+        body {
+            background-image: url("https://images.unsplash.com/photo-1500462918059-b1a0cb512f1d?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1887&q=80");
+            background-size: cover;
+            background-position: center;
+        }
+
+        .formContainer {
+
+            width: 80%;
+            margin: auto;
+            text-align: center;
+
+            margin-top: 10%;
+
+            display: grid;
+            grid-template-columns: 50% 50%;
+        }
+
+        .signupFormDiv form,
+        .loginFormDiv form {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
+
+        form input {
+            margin: 1%;
+        }
+
+        input {
+            border: none;
+            width: 20vw;
+            height: 4vh;
+        }
+    </style>
+</head>
+
+<body>
+
+
+    <div class="formContainer">
+
+        <div class="signupFormDiv">
+            <h1>Signup</h1>
+            <form action="" id="signupForm" onSubmit="Signup(event)">
+                <input type="text" id="name" name="name" placeholder="Name">
+                <input type="email" id="email" name="email" placeholder="Email">
+                <input type="password" id="password" name="password" placeholder="Password">
+                <input type="text" id="username" name="username" placeholder="User name">
+                <input type="number" id="mobile" name="mobile" placeholder="Mobile">
+                <input type="text" id="description" name="description" placeholder="Description">
+                <input type="submit" value="SUBMIT">
+            </form>
+        </div>
+
+        <div class="loginFormDiv">
+            <h1>LOGIN</h1>
+            <form action="" id="loginForm" onSubmit="Login(event)">
+                <input type="text" id="user" name="username" placeholder="User name">
+                <input type="password" id="pass" name="password" placeholder="Password">
+                <input type="submit" value="LOGIN">
+            </form>
+        </div>
+
+    </div>
+
+
+    <script src="main.js"></script>
+</body>
+
+</html>
