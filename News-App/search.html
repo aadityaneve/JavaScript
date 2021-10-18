@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Search</title>
+    <style>
+        #newsDiv {
+            width: 80%;
+            margin: auto;
+
+            display: grid;
+            grid-template-rows: auto;
+
+            row-gap: 2%;
+        }
+
+        #newsDiv div {
+            display: grid;
+            grid-template-columns: 33% 33% 33%;
+
+            column-gap: 1%;
+
+            cursor: pointer;
+        }
+
+        #newsDiv>div img {
+            width: 15vw;
+            height: 100%;
+        }
+    </style>
+</head>
+<body>
+
+    <div id="newsDiv">
+        <h1>Searched Results</h1>
+    </div>
+
+
+    <script src="./scripts/search.js"></script>
+
+</body>
+</html>
