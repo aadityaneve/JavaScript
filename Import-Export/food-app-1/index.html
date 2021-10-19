@@ -45,26 +45,47 @@
         document.getElementById('navbar').innerHTML = navbar();
 
 
-        document.getElementById('search').addEventListener('input', () => {
+        // document.getElementById('search').addEventListener('input', () => {
+
+
+
+        // })
+
+        function main() {
             let searchReceipe = document.getElementById('search').value;
 
-            if (searchReceipe.length != 0) {
-
-                // Getting search string and fetching through api
-                getSearchedReceipe(searchReceipe)
-                    .then(({ meals }) => {
-
-                        // console.log(meals);
-                        if (meals != null) {
-                            displaySearchedReceipe(meals);
-                        }
-
-                    })
-                    .catch((err) => {
-                        console.log("Err: ", err);
-                    })
+            if (searchReceipe.length < 3) {
+                return false;
             }
-        })
+
+            // Getting search string and fetching through api
+            getSearchedReceipe(searchReceipe)
+                .then(({ meals }) => {
+
+                    if (meals != null) {
+                        displaySearchedReceipe(meals);
+                    }
+                })
+                .catch((err) => {
+                    console.log("Err: ", err);
+                })
+        }
+
+
+        let timer;
+        function debounce(main, delay){
+
+            if(timer){
+                clearInterval(timer);
+            }
+            
+            timer = setTimeout(() => {
+                main();
+            }, delay)
+        }
+
+
+
 
     </script>
 
