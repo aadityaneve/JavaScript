@@ -73,17 +73,22 @@
 
 
         let timer;
-        function debounce(main, delay){
+        document.getElementById('search').addEventListener('input', () => {
 
-            if(timer){
+            debounce(main, 1000);
+
+        })
+
+
+        function debounce(main, delay) {
+            if (timer) {
                 clearInterval(timer);
             }
-            
+
             timer = setTimeout(() => {
                 main();
             }, delay)
         }
-
 
 
 
