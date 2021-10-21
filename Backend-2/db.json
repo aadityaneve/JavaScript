@@ -46,10 +46,9 @@
       "price": "10"
     },
     {
-      "id": "9",
-      "name": "cadbury",
-      "price": 10,
-      "active": true
+      "id": "111",
+      "name": "banana",
+      "price": "80"
     }
   ]
 }
