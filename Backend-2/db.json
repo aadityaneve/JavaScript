@@ -1,0 +1,55 @@
+{
+  "products": [
+    {
+      "id": 1,
+      "name": "chiku",
+      "price": "99"
+    },
+    {
+      "id": 2,
+      "name": "ice cream",
+      "price": 2.5,
+      "active": false
+    },
+    {
+      "id": 3,
+      "name": "chips",
+      "price": 6,
+      "active": false
+    },
+    {
+      "id": 4,
+      "name": "vannila",
+      "price": 6,
+      "active": true
+    },
+    {
+      "id": 5,
+      "name": "food",
+      "price": "123"
+    },
+    {
+      "id": 6,
+      "name": "Kitkat",
+      "price": 6,
+      "active": true
+    },
+    {
+      "id": 7,
+      "name": "cadbury",
+      "price": 10,
+      "active": true
+    },
+    {
+      "id": "8",
+      "name": "milkibar",
+      "price": "10"
+    },
+    {
+      "id": "9",
+      "name": "cadbury",
+      "price": 10,
+      "active": true
+    }
+  ]
+}
