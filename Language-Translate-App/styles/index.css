@@ -1,4 +1,4 @@
-*{
+* {
   font-family: "Cutive Mono", monospace;
   font-size: 1rem;
   font-weight: 600;
@@ -32,11 +32,22 @@ textarea {
 #buttonDiv {
   display: flex;
 
+  gap: 3%;
   align-items: center;
   justify-content: center;
 }
 
 #translateBtn {
+  width: 15vw;
+  padding: 2em;
+  border: none;
+  background-color: antiquewhite;
+
+  cursor: pointer;
+}
+
+#speakBtn {
+  width: 15vw;
   padding: 2em;
   border: none;
   background-color: antiquewhite;
