@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="style.css" />
+    <title>Document</title>
+  </head>
+  <body>
+    <div class="">
+      <div
+        class="
+          container
+          text-blue-300
+          mx-auto
+          text-lg
+          p-10
+          bg-gray-200
+          sm:m-20
+          hover:text-red-900
+          w-1/2
+          text-2xl
+          italic
+          font-semibold
+        "
+      >
+        Hello
+      </div>
+      <div
+        class="
+          container
+          text-blue-300
+          mx-auto
+          text-lg
+          p-10
+          hover:bg-blue-300
+          bg-gray-200
+          sm:m-20
+          hover:text-red-900
+          animate-spin
+          h-5
+          w-5
+          mr-3
+          ...
+        "
+      >
+        Hello
+      </div>
+    </div>
+
+    <div class="container">
+      <input
+        type="text"
+        class="m-10 animate-spin h-5 w-5 mr-3 ... placeholder-red-200"
+        placeholder="Search your query"
+      />
+    </div>
+
+    <button
+      class="
+        transition
+        duration-1000
+        ease-in-out
+        bg-blue-600
+        hover:bg-red-600
+        transform
+        hover:-translate-y-1 hover:scale-110
+        bg-orange-500
+        ...
+      "
+    >
+      Hover me Hover me
+    </button>
+
+    <button
+      class="
+        transition
+        transform
+        hover:-translate-y-1
+        motion-reduce:transition-none motion-reduce:transform-none
+        ...
+      "
+    >
+      Hover me
+    </button>
+
+    <div class="container">
+      <div class="static ... bg-pink-100">
+        <p>Static parent</p>
+        <div class="absolute bottom-0 left-0 ... bg-pink-400">
+          <p>Absolute child</p>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>
