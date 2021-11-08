@@ -53,7 +53,7 @@ async function signup(e) {
         password: password.value,
         username: username.value,
         mobile: mobile.value,
-        desc: desc.value,
+        description: desc.value,
     };
     console.log(userData);
     userData = JSON.stringify(userData);
@@ -70,12 +70,17 @@ async function signup(e) {
     );
 
     let response = res.json();
-    console.log(response);
+    // console.log(response);
+    response.then((error) => {
+        if (error) {
+            alert("User already exists");
+        } else {
+            alert("Signing up successfull");
+        }
+    });
 }
 
 async function login(e) {
-    e.preventDefault();
-
     e.preventDefault();
     let { username, password } = document.getElementById("loginForm");
 
@@ -83,8 +88,8 @@ async function login(e) {
         username: username.value,
         password: password.value,
     };
-    console.log(userData);
     userData = JSON.stringify(userData);
+    console.log(userData);
 
     let res = await fetch(`https://masai-api-mocker.herokuapp.com/auth/login`, {
         method: "POST",
@@ -95,7 +100,14 @@ async function login(e) {
     });
 
     let response = res.json();
-    console.log(response);
+    response.then(({ error }) => {
+        console.log(error);
+        if (error) {
+            alert("Wrong Credentials");
+        } else {
+            alert("Logged in successfull");
+        }
+    });
 }
 
 async function getDishes() {
@@ -128,6 +140,7 @@ function showDishes() {
             let cart = JSON.parse(localStorage.getItem("cart"));
             cart.push(data);
             localStorage.setItem("cart", JSON.stringify(cart));
+            alert("Item added to cart.");
         });
 
         div.append(img, price, desc, addToCartButton);
@@ -155,19 +168,19 @@ function showDishesToCart() {
             alert("order placed successfully.");
         }, 2000);
         setTimeout(() => {
-            alert("Your order is accepted.");            
+            alert("Your order is accepted.");
         }, 4000);
-        setTimeout(() => {            
-            alert("Your order is being cooked.");            
+        setTimeout(() => {
+            alert("Your order is being cooked.");
         }, 8000);
-        setTimeout(() => {            
-            alert("Your order is ready.");            
+        setTimeout(() => {
+            alert("Your order is ready.");
         }, 10000);
-        setTimeout(() => {            
-            alert("Order out for delivery.");            
+        setTimeout(() => {
+            alert("Order out for delivery.");
         }, 12000);
-        setTimeout(() => {            
-            alert("Order delivered.");            
+        setTimeout(() => {
+            alert("Order delivered.");
         }, 14000);
     });
 
