@@ -66,3 +66,49 @@ input {
     padding: 3%;
     box-sizing: border-box;
 }
+
+#mealsDiv {
+    display: flex;
+    justify-content: center;
+    padding: 5%;
+}
+
+#mealsDiv > div {
+    display: flex;
+    flex-direction: column;
+    width: 400px;
+    height: 600px;
+}
+
+#mealsDiv > div > button {
+    border: none;
+    font-size: 25px;
+    margin: 15px;
+    padding: 3%;
+    box-sizing: border-box;
+    cursor: pointer;
+}
+
+
+#cartDiv {
+    display: flex;
+    justify-content: center;
+}
+
+#cartDiv > div {
+    display: flex;
+    flex-direction: column;
+    padding: 3%;
+
+    width: 400px;
+    height: 600px;
+}
+
+#cartDiv > div > button {
+    border: none;
+    font-size: 25px;
+    margin: 15px;
+    padding: 3%;
+    box-sizing: border-box;
+    cursor: pointer;
+}
